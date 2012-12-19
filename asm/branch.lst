@@ -1,0 +1,14 @@
+(ARCTools Version 2.1.2)
+ HexLoc     DecLoc    MachWord   Label        Instruction                Comment
+                                              .org 2048                  
+00000800  0000002048  82206001  begin:        sub %r1, 1, %r1            
+00000804  0000002052  82006001                add %r1, 1, %r1            
+00000808  0000002056  82006001                add %r1, 1, %r1            
+0000080c  0000002060  02bffffd                be -3                      
+00000810  0000002064  0cbffffc                bneg -4                    
+00000814  0000002068  00bffffb                bn -5                      
+00000818  0000002072  01000000                nop                        
+0000081c  0000002076  ffffffff                halt                       
+
+--- Symbol Table ---
+begin: 2048

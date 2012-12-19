@@ -1,0 +1,18 @@
+(ARCTools Version 2.1.2)
+ HexLoc     DecLoc    MachWord   Label        Instruction                Comment
+                                              .org 2048                  
+                                              .equ 3000                  
+00000800  0000002048  c2002810                ld [2064], %g1             
+00000804  0000002052  c4002814                ld [2068], %g2             
+                                                                         
+00000808  0000002056  86984002                xorcc %g1, %g2, %g3        
+0000080c  0000002060  ffffffff                halt                       
+                                                                         
+00000810  0000002064  00000011  length:                                  
+00000814  0000002068  00000012  address:                                 
+                                                                         
+
+--- Symbol Table ---
+address: 2068
+a_start: 3000
+length: 2064

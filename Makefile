@@ -11,14 +11,20 @@ arcvm: arcvm.o
 	@$(CC) $(LDFLAGS) $^ -o $@
 
 %.o: %.c
-	@echo "- Compiling $^ ($(CC))..."
-	@$(CC) $(CFLAGS) -c $^ -o $@
+	@echo "- Compiling $< ($(CC))..."
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 tags: $(wildcard *.c) $(wildcard *.h)
 	@echo "- Updating tags..."
 	@ctags *.c
 
+deps: $(wildcard *.c) $(wildcard *.h)
+	@echo "- Recalculating dependencies..."
+	@$(CC) $(CFLAGS) -MM *.c > deps
+
 clean:
-	@rm -fv *.o arcvm tags
+	@rm -rvf *.o
+
+include deps
 
 .PHONY: clean

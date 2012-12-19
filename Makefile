@@ -2,11 +2,17 @@
 
 CC := gcc
 LDFLAGS := $(shell pkg-config --libs sdl) -lsigsegv
-CFLAGS := -Wall -Wextra -pedantic -std=c99 -g -O0 $(shell pkg-config --cflags sdl)
+CFLAGS := -Wall -Wextra -Wno-unused-variable -pedantic -std=c99 -g -O0 -pipe $(shell pkg-config --cflags sdl)
 
 all: arcvm tags
 
-arcvm: arcvm.o
+OBJECTS := arcvm.o \
+	bit.o \
+	mem.o \
+	vm.o \
+	config.o
+
+arcvm: $(OBJECTS)
 	@echo "- Linking $@..."
 	@$(CC) $(LDFLAGS) $^ -o $@
 

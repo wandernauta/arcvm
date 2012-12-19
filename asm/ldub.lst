@@ -1,0 +1,9 @@
+(ARCTools Version 2.1.2)
+ HexLoc     DecLoc    MachWord   Label        Instruction                Comment
+                                              .org 2048                  
+00000800  0000002048  c2082808                ldub [2056], %r1           
+00000804  0000002052  ffffffff                halt                       
+00000808  0000002056  cafebabe  yeh:                                     
+
+--- Symbol Table ---
+yeh: 2056

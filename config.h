@@ -39,9 +39,14 @@
 #define TRACE_INSTRS false
 
 // Display a run summary when the VM halts
-#define PRINT_SUMMARY false
+#define PRINT_SUMMARY true
 
-// Enable the video support
-#define VIDEO_ENABLED false
+// Settings for video support
+#define VIDEO_ENABLED true
+#define VIDEO_WIDTH 640 
+#define VIDEO_HEIGHT 480
+#define VIDEO_BPP 8
+#define VMEM_SIZE ((VIDEO_BPP/8) * VIDEO_WIDTH * VIDEO_HEIGHT)
+#define VMEM_BASE (MEM_IO - VMEM_SIZE)
 
 void check_config();

@@ -1,9 +1,5 @@
 #include "vm.h"
 
-void panic() {
-    fprintf(stderr, "!! PANIC !!\nPC %d", pc);
-}
-
 void setup_registers() {
     for (uint32_t i = 0; i < NUM_REGS; i++) {
         r[i] = 0;
@@ -77,7 +73,7 @@ int arcvm() {
                 case 0:
                     // ld
                     // Loads a word.
-                    if (addr % WORD != 0) panic();
+                    if (addr % WORD != 0) assert(false);
                     r[rd] = load(addr);
                     break;
                 case 1:
@@ -95,14 +91,14 @@ int arcvm() {
                 case 2:
                     // lduh
                     // Loads an unsigned halfword (zero-pads)
-                    if (addr % HALFWORD != 0) panic();
+                    if (addr % HALFWORD != 0) assert(false);
                     r[rd] = load(addr);
                     r[rd] = (uint32_t)(r[rd]) >> 16;
                     break;
                 case 10:
                     // ldsh
                     // Loads a signed halfword (sign-extends).
-                    if (addr % HALFWORD != 0) panic();
+                    if (addr % HALFWORD != 0) assert(false);
                     r[rd] = load(addr);
                     r[rd] = r[rd] >> 16;
                     break;
@@ -118,6 +114,7 @@ int arcvm() {
                     break;
                 case 6:
                     // sth
+                    assert(false);
                     break;
                 default:
                     if (inst == 0xFFFFFFFF) {
@@ -125,6 +122,7 @@ int arcvm() {
                         running = false;
                     } else {
                         // unknown
+                        assert(false);
                         break;
                     }
             }
@@ -170,38 +168,44 @@ int arcvm() {
                 break;
               case 4 + 16:
                 // subcc
-                if (rd != 0) r[rd] = r[a] ^ b;
+                if (rd != 0) r[rd] = r[a] - b;
                 cc(r[rd]);
                 break;
               case 4:
                 // sub
+                if (rd != 0) r[rd] = r[a] - b;
                 break;
               case 5 + 16:
                 // andncc
+                if (rd != 0) r[rd] = r[a] & ~b;
                 cc(r[rd]);
                 break;
               case 5:
                 // andn
+                if (rd != 0) r[rd] = r[a] & ~b;
                 break;
               case 6 + 16:
                 // orncc
+                assert(false);
                 cc(r[rd]);
                 break;
               case 6:
                 // orn
+                assert(false);
                 break;
               case 7 + 16:
                 // xnorcc
+                assert(false);
                 cc(r[rd]);
                 break;
               case 7:
                 // xnor
+                assert(false);
                 break;
               case 38:
                 // srl
                 if (rd != 0) r[rd] = r[a] >> b;
                 break;
-
               default:
                 // unknown
                 break;
@@ -283,12 +287,15 @@ int arcvm() {
                     break;
                   case 10:
                     // bg
+                    assert(false);
                     break;
                   case 11:
                     // bge
+                    assert(false);
                     break;
                   case 12:
                     // bgu
+                    assert(false);
                     break;
                   case 13:
                     // bcc
@@ -312,11 +319,12 @@ int arcvm() {
                     }
                     break;
                   default:
-                    // ?;
+                    assert(false);
                     break;
                   }
                 }
             } else {
+                assert(false);
             }
 
         pc += WORD;
@@ -324,7 +332,7 @@ int arcvm() {
 
     if (PRINT_SUMMARY) {
         printf("\n   SUMMARY\n");
-        printf(" - Halted after %d cycles, %d clocks.\n", clks, (int)clock());
+        printf(" - Halted after %d cycles, %d host clocks.\n", clks, (int)clock());
 
         for (uint32_t i = 0; i < NUM_REGS; i++) {
             if (r[i] != 0) {

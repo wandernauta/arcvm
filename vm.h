@@ -2,8 +2,8 @@
 
 #include <stdint.h>
 
-#include "SDL.h"
 #include <time.h>
+#include "SDL.h"
 
 #include "config.h"
 #include "mem.h"
@@ -23,8 +23,6 @@ static const uint32_t C = 1 << 20; // Carry
 
 void setup_registers();
 void cc(int32_t val);
-
-static SDL_Surface* screen;
 
 // Main loop
 int arcvm();

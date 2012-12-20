@@ -5,8 +5,14 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "SDL.h"
+
 #include "config.h"
 
+// 'Video memory'
+static SDL_Surface* screen;
+
+// User memory
 static uint8_t m[USERSPACE];
 
 void setup_memory();

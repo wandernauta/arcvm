@@ -2,6 +2,12 @@
 
 void setup_memory() {
     memset(m, 0, USERSPACE);
+
+    if (VIDEO_ENABLED) {
+        SDL_Init(SDL_INIT_VIDEO);
+        screen = SDL_SetVideoMode(VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_BPP, SDL_SWSURFACE);
+        assert(screen);
+    }
 }
 
 int32_t load(uint32_t byteaddr) {
@@ -47,20 +53,23 @@ void store(uint32_t byteaddr, int32_t val) {
 void stb(uint32_t byteaddr, uint8_t byte) {
     if (TRACE_MEMORY) printf("st %d=%02x -> %u\n", byte, byte, byteaddr);
 
-    if (MEM_OS <= byteaddr && byteaddr < MEM_IO) {
-        // Store to user space.
-        m[byteaddr] = byte;
-    } else if (byteaddr < MEM_OS) {
+    if (byteaddr < MEM_OS) {
         // Store to system memory.
         return;
-    } else if (byteaddr >= MEM_IO) {
-        if (byteaddr == MEM_IO + COUT) {
-            putchar(byte);
-        } else if (byteaddr == MEM_IO + COSTAT) {
-            // Writing to the console status port doesn't make much sense.
-        }
-
-        // Store to I/O address space.
+    } else if (byteaddr < VMEM_BASE) {
+        // Store to user space.
+        m[byteaddr] = byte;
+    } else if (byteaddr < MEM_IO) {
+        // Store to video output.
+        assert(screen);
+        SDL_LockSurface(screen);
+        Uint8 *p = (uint8_t*)screen->pixels + (byteaddr - VMEM_BASE);
+        *p = byte;
+        SDL_UnlockSurface(screen);
+        SDL_UpdateRect(screen, 0, 0, 0, 0);
+        return;
+    } else if (byteaddr == MEM_IO + COUT) {
+        putchar(byte);
         return;
     } else {
         assert(false);

@@ -18,11 +18,6 @@ int main(int argc, char** argv) {
     setup_registers();
     setup_memory();
 
-    if (VIDEO_ENABLED) {
-        SDL_Init(SDL_INIT_VIDEO);
-        screen = SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE);
-    }
-
     // Ignore first hex
     uint32_t offset = 0;
     fscanf(in, "%x", &offset);

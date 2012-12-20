@@ -20,15 +20,12 @@ int arcvm() {
     bool running = true;
 
     while (running) {
-        if (clks % 1000 == 0) {
         while(SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
                     exit(0);
             }
         }
-        }
-
 
         clks++;
 
@@ -347,12 +344,11 @@ int arcvm() {
     }
 
     while (true) {
-        while ( SDL_PollEvent(&event) ) {
-            switch (event.type) {
-                case SDL_KEYDOWN:
-                case SDL_QUIT:
-                    exit(0);
-            }
+        SDL_WaitEvent(&event);
+        switch (event.type) {
+            case SDL_KEYDOWN:
+            case SDL_QUIT:
+                exit(0);
         }
     }
 

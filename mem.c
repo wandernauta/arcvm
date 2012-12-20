@@ -74,13 +74,16 @@ void stb(uint32_t byteaddr, uint8_t byte) {
 
         uint8_t* p = screen->pixels;
 
+        if (SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
+
         for (int x = 0; x < VIDEO_SCALE; x++) {
             for (int y = 0; y < VIDEO_SCALE; y++) {
                 *(p + ((py + y) * VIDEO_WIDTH * VIDEO_SCALE) + px + x) = byte;
             }
         }
 
-        //if (SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
+        if (SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
+
         SDL_UpdateRect(screen, px, py, VIDEO_SCALE, VIDEO_SCALE);
         return;
     } else if (byteaddr == MEM_IO + COUT) {

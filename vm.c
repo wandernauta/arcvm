@@ -11,6 +11,8 @@ void cc(int32_t val) {
     psr = 0;
     if (val < 0) psr |= N;
     if (val == 0) psr |= Z;
+
+    if (TRACE_INSTRS) printf("Update cc for val %d\n", val);
 }
 
 int arcvm() {
@@ -18,12 +20,13 @@ int arcvm() {
     bool running = true;
 
     while (running) {
-        while ( SDL_PollEvent(&event) ) {
+        if (clks % 1000 == 0) {
+        while(SDL_PollEvent(&event)) {
             switch (event.type) {
-                case SDL_KEYDOWN:
                 case SDL_QUIT:
                     exit(0);
             }
+        }
         }
 
 
@@ -155,34 +158,34 @@ int arcvm() {
                 break;
               case 2:
                 // or
-                if (rd != 0) r[rd] = r[a] | b;
+                r[rd] = r[a] | b;
                 break;
               case 3 + 16:
                 // xorcc
-                if (rd != 0) r[rd] = r[a] ^ b;
+                r[rd] = r[a] ^ b;
                 cc(r[rd]);
                 break;
               case 3:
                 // xor
-                if (rd != 0) r[rd] = r[a] ^ b;
+                r[rd] = r[a] ^ b;
                 break;
               case 4 + 16:
                 // subcc
-                if (rd != 0) r[rd] = r[a] - b;
+                r[rd] = r[a] - b;
                 cc(r[rd]);
                 break;
               case 4:
                 // sub
-                if (rd != 0) r[rd] = r[a] - b;
+                r[rd] = r[a] - b;
                 break;
               case 5 + 16:
                 // andncc
-                if (rd != 0) r[rd] = r[a] & ~b;
+                r[rd] = r[a] & ~b;
                 cc(r[rd]);
                 break;
               case 5:
                 // andn
-                if (rd != 0) r[rd] = r[a] & ~b;
+                r[rd] = r[a] & ~b;
                 break;
               case 6 + 16:
                 // orncc
@@ -204,7 +207,7 @@ int arcvm() {
                 break;
               case 38:
                 // srl
-                if (rd != 0) r[rd] = r[a] >> b;
+                r[rd] = r[a] >> b;
                 break;
               default:
                 // unknown
@@ -341,6 +344,16 @@ int arcvm() {
         }
 
         printf("\n");
+    }
+
+    while (true) {
+        while ( SDL_PollEvent(&event) ) {
+            switch (event.type) {
+                case SDL_KEYDOWN:
+                case SDL_QUIT:
+                    exit(0);
+            }
+        }
     }
 
     return 0;

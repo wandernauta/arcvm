@@ -5,7 +5,7 @@ void setup_memory() {
 
     if (VIDEO_ENABLED) {
         SDL_Init(SDL_INIT_VIDEO);
-        screen = SDL_SetVideoMode(VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_BPP, SDL_SWSURFACE);
+        screen = SDL_SetVideoMode(VIDEO_WIDTH * VIDEO_SCALE, VIDEO_HEIGHT * VIDEO_SCALE, VIDEO_BPP, SDL_SWSURFACE|SDL_DOUBLEBUF);
         assert(screen);
     }
 }
@@ -62,11 +62,26 @@ void stb(uint32_t byteaddr, uint8_t byte) {
     } else if (byteaddr < MEM_IO) {
         // Store to video output.
         assert(screen);
-        SDL_LockSurface(screen);
-        Uint8 *p = (uint8_t*)screen->pixels + (byteaddr - VMEM_BASE);
-        *p = byte;
-        SDL_UnlockSurface(screen);
-        SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+        //if (SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
+
+        const uint32_t off = byteaddr - VMEM_BASE;
+        const uint32_t lx = off % VIDEO_WIDTH;
+        const uint32_t ly = off / VIDEO_WIDTH;
+
+        const uint32_t px = lx * VIDEO_SCALE;
+        const uint32_t py = ly * VIDEO_SCALE;
+
+        uint8_t* p = screen->pixels;
+
+        for (int x = 0; x < VIDEO_SCALE; x++) {
+            for (int y = 0; y < VIDEO_SCALE; y++) {
+                *(p + ((py + y) * VIDEO_WIDTH * VIDEO_SCALE) + px + x) = byte;
+            }
+        }
+
+        //if (SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
+        SDL_UpdateRect(screen, px, py, VIDEO_SCALE, VIDEO_SCALE);
         return;
     } else if (byteaddr == MEM_IO + COUT) {
         putchar(byte);

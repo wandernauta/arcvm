@@ -43,8 +43,9 @@
 
 // Settings for video support
 #define VIDEO_ENABLED true
-#define VIDEO_WIDTH 640 
-#define VIDEO_HEIGHT 480
+#define VIDEO_WIDTH 320 
+#define VIDEO_HEIGHT 240
+#define VIDEO_SCALE 3
 #define VIDEO_BPP 8
 #define VMEM_SIZE ((VIDEO_BPP/8) * VIDEO_WIDTH * VIDEO_HEIGHT)
 #define VMEM_BASE (MEM_IO - VMEM_SIZE)

@@ -1,0 +1,1359 @@
+(ARCTools Version 2.1.2)
+ HexLoc     DecLoc    MachWord   Label        Instruction                Comment
+                                              .org 2048                  
+00000800  0000002048  033fff75                sethi 4194165, %r1         ! Set r1 to VMEM_BASE
+00000804  0000002052  c8002844                ld [2116], %r4             
+                                                                         
+                                              .equ 320                   
+                                              .equ 240                   
+                                              .equ 16                    
+                                              .equ 256                   
+                                                                         
+00000808  0000002056  8a016010                add %r5, 16, %r5           
+                                                                         
+                                                                         ! %r4 = color
+                                                                         ! %r5 = offset
+                                                                         ! %r6 = x
+                                                                         ! %r7 = y
+                                                                         
+0000080c  0000002060  8a016140  nexty:        add %r5, 320, %r5          
+00000810  0000002064  8a216010                sub %r5, 16, %r5           
+00000814  0000002068  8c09a000                and %r6, 0, %r6            
+00000818  0000002072  8e01e001                add %r7, 1, %r7            
+0000081c  0000002076  80a1e010                subcc %r7, 16, %r0         
+00000820  0000002080  02800008                be 8                       
+00000824  0000002084  c8284005  draw:         stb %r4, %r1, %r5          
+00000828  0000002088  88012001                add %r4, 1, %r4            
+0000082c  0000002092  8a016001                add %r5, 1, %r5            
+00000830  0000002096  8c01a001                add %r6, 1, %r6            
+00000834  0000002100  80a1a010                subcc %r6, 16, %r0         
+00000838  0000002104  02bffff5                be -11                     
+0000083c  0000002108  10bffffa                ba -6                      
+00000840  0000002112  ffffffff  done:         halt                       
+00000844  0000002116  00000000  on:                                      
+                                                                         
+                                              .equ 0x7f                  
+                                              .equ 0x7b                  
+                                              .equ 0x7f                  
+                                              .equ 0x7a                  
+                                              .equ 0x56                  
+                                              .equ 0x51                  
+                                              .equ 0x3e                  
+                                              .equ 0x3e                  
+                                              .equ 0x3e                  
+                                              .equ 0x3a                  
+                                              .equ 0x31                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x5a                  
+                                              .equ 0x52                  
+                                              .equ 0x7f                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x56                  
+                                              .equ 0x4d                  
+                                              .equ 0x00                  
+                                              .equ 0x7a                  
+                                              .equ 0x03                  
+                                              .equ 0x03                  
+                                              .equ 0x03                  
+                                              .equ 0x02                  
+                                              .equ 0x02                  
+                                              .equ 0x47                  
+                                              .equ 0x44                  
+                                              .equ 0x69                  
+                                              .equ 0x69                  
+                                              .equ 0x45                  
+                                              .equ 0x44                  
+                                              .equ 0x76                  
+                                              .equ 0x7a                  
+                                              .equ 0x76                  
+                                              .equ 0x55                  
+                                              .equ 0x4d                  
+                                              .equ 0x32                  
+                                              .equ 0x5f                  
+                                              .equ 0x5b                  
+                                              .equ 0x36                  
+                                              .equ 0x32                  
+                                              .equ 0x3c                  
+                                              .equ 0x3c                  
+                                              .equ 0x3c                  
+                                              .equ 0x38                  
+                                              .equ 0x30                  
+                                              .equ 0x4c                  
+                                              .equ 0x6c                  
+                                              .equ 0x6c                  
+                                              .equ 0x4c                  
+                                              .equ 0x48                  
+                                              .equ 0x6d                  
+                                              .equ 0x6d                  
+                                              .equ 0x6d                  
+                                              .equ 0x49                  
+                                              .equ 0x49                  
+                                              .equ 0x33                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7a                  
+                                              .equ 0x56                  
+                                              .equ 0x51                  
+                                              .equ 0x1f                  
+                                              .equ 0x1f                  
+                                              .equ 0x1f                  
+                                              .equ 0x1a                  
+                                              .equ 0x12                  
+                                              .equ 0x02                  
+                                              .equ 0x12                  
+                                              .equ 0x50                  
+                                              .equ 0x74                  
+                                              .equ 0x74                  
+                                              .equ 0x50                  
+                                              .equ 0x4c                  
+                                              .equ 0x56                  
+                                              .equ 0x0c                  
+                                              .equ 0x56                  
+                                              .equ 0x55                  
+                                              .equ 0x42                  
+                                              .equ 0x2d                  
+                                              .equ 0x5d                  
+                                              .equ 0x5d                  
+                                              .equ 0x59                  
+                                              .equ 0x31                  
+                                              .equ 0x70                  
+                                              .equ 0x6c                  
+                                              .equ 0x6c                  
+                                              .equ 0x4c                  
+                                              .equ 0x48                  
+                                              .equ 0x46                  
+                                              .equ 0x4b                  
+                                              .equ 0x4b                  
+                                              .equ 0x46                  
+                                              .equ 0x26                  
+                                              .equ 0x40                  
+                                              .equ 0x71                  
+                                              .equ 0x56                  
+                                              .equ 0x5e                  
+                                              .equ 0x5e                  
+                                              .equ 0x5a                  
+                                              .equ 0x31                  
+                                              .equ 0x2a                  
+                                              .equ 0x29                  
+                                              .equ 0x5f                  
+                                              .equ 0x5f                  
+                                              .equ 0x3a                  
+                                              .equ 0x32                  
+                                              .equ 0x29                  
+                                              .equ 0x1a                  
+                                              .equ 0x42                  
+                                              .equ 0x66                  
+                                              .equ 0x66                  
+                                              .equ 0x62                  
+                                              .equ 0x41                  
+                                              .equ 0x41                  
+                                              .equ 0x17                  
+                                              .equ 0x17                  
+                                              .equ 0x17                  
+                                              .equ 0x12                  
+                                              .equ 0x0e                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x13                  
+                                              .equ 0x13                  
+                                              .equ 0x13                  
+                                              .equ 0x0e                  
+                                              .equ 0x0a                  
+                                              .equ 0x44                  
+                                              .equ 0x65                  
+                                              .equ 0x65                  
+                                              .equ 0x44                  
+                                              .equ 0x44                  
+                                              .equ 0x7f                  
+                                              .equ 0x10                  
+                                              .equ 0x7b                  
+                                              .equ 0x7f                  
+                                              .equ 0x78                  
+                                              .equ 0x78                  
+                                              .equ 0x78                  
+                                              .equ 0x54                  
+                                              .equ 0x4c                  
+                                              .equ 0x74                  
+                                              .equ 0x74                  
+                                              .equ 0x74                  
+                                              .equ 0x50                  
+                                              .equ 0x4c                  
+                                              .equ 0x56                  
+                                              .equ 0x00                  
+                                              .equ 0x00                  
+                                              .equ 0x04                  
+                                              .equ 0x7f                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x25                  
+                                              .equ 0x25                  
+                                              .equ 0x25                  
+                                              .equ 0x00                  
+                                              .equ 0x25                  
+                                              .equ 0x25                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x00                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x00                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x00                  
+                                              .equ 0x2d                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x00                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x00                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x5a                  
+                                              .equ 0x04                  
+                                              .equ 0x5a                  
+                                              .equ 0x5a                  
+                                              .equ 0x5a                  
+                                              .equ 0x5a                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x04                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x1c                  
+                                              .equ 0x1c                  
+                                              .equ 0x1c                  
+                                              .equ 0x18                  
+                                              .equ 0x10                  
+                                              .equ 0x5d                  
+                                              .equ 0x56                  
+                                              .equ 0x00                  
+                                              .equ 0x00                  
+                                              .equ 0x04                  
+                                              .equ 0x7f                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x04                  
+                                              .equ 0x25                  
+                                              .equ 0x25                  
+                                              .equ 0x25                  
+                                              .equ 0x00                  
+                                              .equ 0x25                  
+                                              .equ 0x25                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x00                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x29                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x00                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x2d                  
+                                              .equ 0x00                  
+                                              .equ 0x2d                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x00                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x52                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x00                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x56                  
+                                              .equ 0x5a                  
+                                              .equ 0x04                  
+                                              .equ 0x5a                  
+                                              .equ 0x5a                  
+                                              .equ 0x5a                  
+                                              .equ 0x5a                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x04                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x5a                  
+                                              .equ 0x52                  
+                                              .equ 0x6e                  
+                                              .equ 0x6e                  
+                                              .equ 0x6e                  
+                                              .equ 0x4e                  
+                                              .equ 0x49                  
+                                              .equ 0x4d                  
+                                              .equ 0x6d                  
+                                              .equ 0x6d                  
+                                              .equ 0x49                  
+                                              .equ 0x49                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x5a                  
+                                              .equ 0x52                  
+                                              .equ 0x7a                  
+                                              .equ 0x7e                  
+                                              .equ 0x7a                  
+                                              .equ 0x55                  
+                                              .equ 0x51                  
+                                              .equ 0x7b                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7b                  
+                                              .equ 0x56                  
+                                              .equ 0x52                  
+                                              .equ 0x3c                  
+                                              .equ 0x7e                  
+                                              .equ 0x7e                  
+                                              .equ 0x7a                  
+                                              .equ 0x5a                  
+                                              .equ 0x51                  
+                                              .equ 0x5b                  
+                                              .equ 0x5f                  
+                                              .equ 0x5b                  
+                                              .equ 0x56                  
+                                              .equ 0x32                  
+                                              .equ 0x72                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x5f                  
+                                              .equ 0x5a                  
+                                              .equ 0x32                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x55                  
+                                              .equ 0x51                  
+                                              .equ 0x7e                  
+                                              .equ 0x5a                  
+                                              .equ 0x5e                  
+                                              .equ 0x5a                  
+                                              .equ 0x76                  
+                                              .equ 0x76                  
+                                              .equ 0x72                  
+                                              .equ 0x52                  
+                                              .equ 0x4d                  
+                                              .equ 0x71                  
+                                              .equ 0x71                  
+                                              .equ 0x71                  
+                                              .equ 0x51                  
+                                              .equ 0x49                  
+                                              .equ 0x16                  
+                                              .equ 0x5b                  
+                                              .equ 0x5b                  
+                                              .equ 0x5b                  
+                                              .equ 0x56                  
+                                              .equ 0x2e                  
+                                              .equ 0x4f                  
+                                              .equ 0x32                  
+                                              .equ 0x32                  
+                                              .equ 0x57                  
+                                              .equ 0x5b                  
+                                              .equ 0x5b                  
+                                              .equ 0x56                  
+                                              .equ 0x2e                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7e                  
+                                              .equ 0x5a                  
+                                              .equ 0x51                  
+                                              .equ 0x39                  
+                                              .equ 0x7f                  
+                                              .equ 0x63                  
+                                              .equ 0x63                  
+                                              .equ 0x63                  
+                                              .equ 0x42                  
+                                              .equ 0x42                  
+                                              .equ 0x45                  
+                                              .equ 0x66                  
+                                              .equ 0x66                  
+                                              .equ 0x46                  
+                                              .equ 0x45                  
+                                              .equ 0x3a                  
+                                              .equ 0x02                  
+                                              .equ 0x4a                  
+                                              .equ 0x6f                  
+                                              .equ 0x4f                  
+                                              .equ 0x4a                  
+                                              .equ 0x2a                  
+                                              .equ 0x4f                  
+                                              .equ 0x53                  
+                                              .equ 0x4f                  
+                                              .equ 0x4e                  
+                                              .equ 0x2a                  
+                                              .equ 0x35                  
+                                              .equ 0x2f                  
+                                              .equ 0x1e                  
+                                              .equ 0x3a                  
+                                              .equ 0x46                  
+                                              .equ 0x05                  
+                                              .equ 0x7f                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x7a                  
+                                              .equ 0x56                  
+                                              .equ 0x4d                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x56                  
+                                              .equ 0x4d                  
+                                              .equ 0x02                  
+                                              .equ 0x02                  
+                                              .equ 0x7f                  
+                                              .equ 0x30                  
+                                              .equ 0x5d                  
+                                              .equ 0x5d                  
+                                              .equ 0x59                  
+                                              .equ 0x30                  
+                                              .equ 0x74                  
+                                              .equ 0x74                  
+                                              .equ 0x70                  
+                                              .equ 0x50                  
+                                              .equ 0x48                  
+                                              .equ 0x68                  
+                                              .equ 0x68                  
+                                              .equ 0x68                  
+                                              .equ 0x48                  
+                                              .equ 0x44                  
+                                              .equ 0x6f                  
+                                              .equ 0x73                  
+                                              .equ 0x6f                  
+                                              .equ 0x4e                  
+                                              .equ 0x4a                  
+                                              .equ 0x7a                  
+                                              .equ 0x5e                  
+                                              .equ 0x5e                  
+                                              .equ 0x5e                  
+                                              .equ 0x39                  
+                                              .equ 0x31                  
+                                              .equ 0x5f                  
+                                              .equ 0x5f                  
+                                              .equ 0x5f                  
+                                              .equ 0x5a                  
+                                              .equ 0x32                  
+                                              .equ 0x6e                  
+                                              .equ 0x72                  
+                                              .equ 0x6e                  
+                                              .equ 0x4e                  
+                                              .equ 0x49                  
+                                              .equ 0x7f                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x56                  
+                                              .equ 0x4d                  
+                                              .equ 0x51                  
+                                              .equ 0x76                  
+                                              .equ 0x76                  
+                                              .equ 0x76                  
+                                              .equ 0x52                  
+                                              .equ 0x4d                  
+                                              .equ 0x73                  
+                                              .equ 0x77                  
+                                              .equ 0x77                  
+                                              .equ 0x52                  
+                                              .equ 0x4e                  
+                                              .equ 0x5b                  
+                                              .equ 0x47                  
+                                              .equ 0x47                  
+                                              .equ 0x47                  
+                                              .equ 0x26                  
+                                              .equ 0x26                  
+                                              .equ 0x60                  
+                                              .equ 0x60                  
+                                              .equ 0x60                  
+                                              .equ 0x40                  
+                                              .equ 0x40                  
+                                              .equ 0x52                  
+                                              .equ 0x76                  
+                                              .equ 0x76                  
+                                              .equ 0x52                  
+                                              .equ 0x4d                  
+                                              .equ 0x2f                  
+                                              .equ 0x2f                  
+                                              .equ 0x2f                  
+                                              .equ 0x2e                  
+                                              .equ 0x0a                  
+                                              .equ 0x48                  
+                                              .equ 0x71                  
+                                              .equ 0x71                  
+                                              .equ 0x71                  
+                                              .equ 0x4d                  
+                                              .equ 0x49                  
+                                              .equ 0x71                  
+                                              .equ 0x31                  
+                                              .equ 0x3e                  
+                                              .equ 0x3e                  
+                                              .equ 0x3a                  
+                                              .equ 0x31                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7b                  
+                                              .equ 0x56                  
+                                              .equ 0x52                  
+                                              .equ 0x49                  
+                                              .equ 0x71                  
+                                              .equ 0x6d                  
+                                              .equ 0x4d                  
+                                              .equ 0x48                  
+                                              .equ 0x5b                  
+                                              .equ 0x5b                  
+                                              .equ 0x37                  
+                                              .equ 0x36                  
+                                              .equ 0x2e                  
+                                              .equ 0x2a                  
+                                              .equ 0x4f                  
+                                              .equ 0x2f                  
+                                              .equ 0x2a                  
+                                              .equ 0x2a                  
+                                              .equ 0x32                  
+                                              .equ 0x5b                  
+                                              .equ 0x5b                  
+                                              .equ 0x56                  
+                                              .equ 0x2e                  
+                                              .equ 0x32                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7b                  
+                                              .equ 0x5a                  
+                                              .equ 0x52                  
+                                              .equ 0x1d                  
+                                              .equ 0x1d                  
+                                              .equ 0x1d                  
+                                              .equ 0x19                  
+                                              .equ 0x11                  
+                                              .equ 0x32                  
+                                              .equ 0x37                  
+                                              .equ 0x37                  
+                                              .equ 0x32                  
+                                              .equ 0x2e                  
+                                              .equ 0x56                  
+                                              .equ 0x75                  
+                                              .equ 0x71                  
+                                              .equ 0x51                  
+                                              .equ 0x49                  
+                                              .equ 0x77                  
+                                              .equ 0x7b                  
+                                              .equ 0x7b                  
+                                              .equ 0x56                  
+                                              .equ 0x4e                  
+                                              .equ 0x6d                  
+                                              .equ 0x6d                  
+                                              .equ 0x6d                  
+                                              .equ 0x49                  
+                                              .equ 0x44                  
+                                              .equ 0x3a                  
+                                              .equ 0x1f                  
+                                              .equ 0x1b                  
+                                              .equ 0x16                  
+                                              .equ 0x12                  
+                                              .equ 0x73                  
+                                              .equ 0x46                  
+                                              .equ 0x6a                  
+                                              .equ 0x6a                  
+                                              .equ 0x45                  
+                                              .equ 0x45                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x7a                  
+                                              .equ 0x56                  
+                                              .equ 0x4d                  
+                                              .equ 0x7f                  
+                                              .equ 0x7f                  
+                                              .equ 0x7c                  
+                                              .equ 0x7c                  
+                                              .equ 0x7c                  
+                                              .equ 0x58                  
+                                              .equ 0x50                  
+                                              .equ 0x59                  
+                                                                         
+
+--- Symbol Table ---
+lightcyan1: 127
+white: 127
+green: 28
+darkorchid4: 38
+darkorchid3: 70
+violet: 115
+darkorchid2: 75
+darkorchid1: 75
+violetred: 70
+WIDTH: 320
+maroon4: 69
+maroon3: 70
+maroon2: 102
+maroon1: 102
+cornflowerblue: 51
+darkslategray4: 50
+darkslategray3: 58
+darkslategray2: 95
+darkslategray1: 95
+turquoise: 58
+orange: 116
+dodgerblue4: 10
+lemonchiffon4: 81
+dodgerblue3: 14
+lemonchiffon3: 90
+dodgerblue2: 19
+mediumvioletred: 70
+lemonchiffon2: 122
+dodgerblue1: 19
+lemonchiffon1: 126
+coral4: 73
+coral3: 73
+darkgreen: 12
+coral2: 109
+coral1: 109
+maroon: 69
+thistle: 119
+darkorchid: 70
+limegreen: 57
+lightsalmon4: 73
+lightsalmon3: 81
+lightsalmon2: 113
+lightsalmon1: 113
+darkorange4: 72
+darkorange3: 76
+darkorange2: 108
+darkorange1: 108
+cyan4: 18
+cyan3: 26
+cyan2: 31
+cyan1: 31
+springgreen: 29
+azure4: 82
+azure3: 90
+azure2: 127
+azure1: 127
+lightpink4: 77
+lightpink3: 82
+lightpink2: 114
+lightpink1: 118
+skyblue: 91
+darkcyan: 18
+ghostwhite: 127
+lightcyan: 127
+powderblue: 91
+darkviolet: 66
+darkmagenta: 66
+gray9: 4
+gray8: 4
+gray7: 0
+gray6: 0
+gray5: 0
+gray4: 0
+gray3: 0
+gray2: 0
+gray1: 0
+gray0: 0
+forestgreen: 16
+sandybrown: 113
+darkorange: 112
+aquamarine4: 49
+aquamarine3: 58
+aquamarine2: 62
+aquamarine1: 62
+darkslategrey: 41
+papayawhip: 127
+pink4: 77
+pink3: 82
+pink2: 118
+royalblue: 47
+pink1: 118
+bisque: 122
+bisque4: 77
+bisque3: 86
+bisque2: 122
+bisque1: 122
+slateblue: 42
+orangered4: 68
+orangered3: 72
+orangered2: 104
+orangered1: 104
+black: 0
+blanchedalmond: 122
+antiquewhite: 123
+mediumturquoise: 58
+lawngreen: 60
+red4: 64
+red3: 64
+lightslategrey: 50
+red2: 96
+red1: 96
+yellowgreen: 89
+lavenderblush: 127
+HEIGHT: 240
+salmon4: 73
+green4: 16
+salmon3: 77
+green3: 24
+salmon2: 113
+green2: 28
+moccasin: 122
+salmon1: 113
+green1: 28
+darkslategray: 41
+chartreuse4: 48
+chartreuse3: 56
+chartreuse2: 60
+gold: 120
+chartreuse1: 60
+darkblue: 2
+lightblue: 91
+navajowhite4: 77
+navajowhite3: 86
+hotpink4: 73
+navajowhite2: 122
+hotpink3: 78
+navajowhite1: 122
+hotpink2: 110
+hotpink1: 110
+cornsilk4: 81
+cornsilk3: 86
+cornsilk2: 122
+plum: 115
+cornsilk1: 127
+aliceblue: 127
+salmon: 113
+peachpuff: 122
+greenyellow: 93
+midnightblue: 5
+pink: 118
+palevioletred: 110
+SQUARE: 256
+lightslategray: 50
+lightsteelblue: 87
+paleturquoise: 95
+azure: 127
+grey100: 127
+lightyellow4: 81
+lavender: 123
+lightyellow3: 90
+lightyellow2: 126
+blueviolet: 71
+lightyellow1: 127
+darkolivegreen4: 49
+darkolivegreen3: 89
+darkolivegreen2: 93
+snow4: 82
+darkolivegreen1: 93
+snow3: 90
+deeppink: 102
+snow2: 123
+snow1: 127
+peachpuff4: 77
+peachpuff3: 86
+tan: 86
+peachpuff2: 122
+peachpuff1: 122
+slateblue4: 42
+slateblue3: 42
+slateblue2: 47
+slateblue1: 79
+mediumslateblue: 47
+rosybrown4: 77
+rosybrown3: 82
+rosybrown2: 118
+rosybrown1: 118
+tomato: 109
+lightyellow: 127
+mediumspringgreen: 30
+chocolate4: 72
+chocolate3: 76
+sienna: 73
+chocolate2: 108
+chocolate1: 108
+ivory4: 82
+ivory3: 90
+deepskyblue: 23
+ivory2: 127
+darksalmon: 113
+ivory1: 127
+cornsilk: 127
+mistyrose4: 77
+mistyrose3: 86
+mistyrose2: 122
+gray99: 127
+tomato4: 68
+mistyrose1: 123
+gray98: 127
+tomato3: 73
+gray97: 127
+tomato2: 109
+gray96: 127
+goldenrod: 116
+tomato1: 109
+gray95: 127
+gray94: 127
+gray93: 123
+gray92: 123
+gray91: 123
+gray90: 123
+seagreen4: 49
+seagreen3: 58
+seagreen2: 62
+seagreen1: 62
+gray89: 123
+gray88: 123
+gray87: 123
+gray86: 123
+darkolivegreen: 45
+gray85: 123
+gray84: 123
+gray83: 90
+gray82: 90
+gray81: 90
+done: 2112
+wheat4: 77
+gray80: 90
+wheat3: 86
+wheat2: 122
+wheat1: 122
+aquamarine: 62
+brown4: 68
+brown3: 69
+brown2: 105
+gray79: 90
+brown1: 105
+gray78: 86
+hotpink: 110
+chocolate: 76
+gray77: 86
+gray76: 86
+gray75: 86
+lightseagreen: 22
+gray74: 86
+gray73: 86
+thistle4: 78
+gray72: 86
+thistle3: 86
+gray71: 86
+thistle2: 123
+gray70: 86
+thistle1: 123
+TILE: 16
+gray69: 86
+gray68: 86
+gray67: 86
+gray66: 86
+gray65: 86
+gray64: 82
+gray63: 82
+gray62: 82
+gray61: 82
+gray60: 82
+yellow4: 80
+gray59: 82
+yellow3: 88
+gray58: 82
+yellow2: 124
+gray57: 82
+yellow1: 124
+mintcream: 127
+gray56: 82
+cadetblue4: 50
+gray55: 82
+cadetblue3: 54
+gray54: 82
+cadetblue2: 91
+gray53: 82
+cadetblue1: 95
+gray52: 82
+darkturquoise: 26
+gray51: 82
+gray50: 45
+grey: 86
+gainsboro: 123
+dimgrey: 45
+gray49: 45
+gray48: 45
+gray47: 45
+gray46: 45
+gray45: 45
+gray44: 45
+gray43: 45
+gray42: 45
+gray41: 45
+gray40: 45
+lemonchiffon: 126
+red: 96
+orchid4: 74
+orchid3: 78
+orchid2: 111
+orchid1: 115
+plum4: 78
+plum3: 82
+plum2: 119
+plum1: 119
+gray39: 45
+gray38: 45
+gray37: 45
+gray36: 45
+palegreen: 94
+gray35: 41
+gray34: 41
+seagreen: 49
+gray33: 41
+royalblue4: 10
+burlywood4: 77
+gray32: 41
+royalblue3: 46
+burlywood3: 85
+gray31: 41
+royalblue2: 47
+burlywood2: 118
+gray30: 41
+royalblue1: 47
+burlywood1: 122
+navyblue: 2
+lightgoldenrod4: 81
+lightgoldenrod3: 85
+lightgoldenrod2: 122
+lightgoldenrod1: 122
+gray29: 41
+gray28: 41
+gray27: 41
+gray26: 41
+gray25: 41
+ivory: 127
+gray24: 41
+gray23: 41
+seashell4: 82
+gray22: 41
+seashell3: 86
+gray21: 37
+seashell2: 123
+gray20: 37
+seashell1: 127
+navajowhite: 122
+dodgerblue: 19
+mistyrose: 123
+lightpink: 118
+gray19: 37
+mediumpurple: 79
+gray18: 37
+gray17: 37
+gray16: 4
+gray15: 4
+gray14: 4
+gray13: 4
+gray12: 4
+gray11: 4
+gray10: 4
+gray: 86
+lavenderblush4: 82
+brown: 68
+lavenderblush3: 86
+lavenderblush2: 123
+lavenderblush1: 127
+dimgray: 45
+orange4: 72
+orange3: 80
+orange2: 112
+orange1: 116
+mediumorchid: 74
+lightblue4: 50
+nexty: 2060
+lightblue3: 86
+lightblue2: 91
+lightblue1: 95
+antiquewhite4: 81
+antiquewhite3: 86
+antiquewhite2: 122
+antiquewhite1: 127
+goldenrod4: 76
+goldenrod3: 80
+goldenrod2: 116
+goldenrod1: 116
+cadetblue: 50
+floralwhite: 127
+honeydew: 127
+grey9: 4
+grey8: 4
+grey7: 0
+grey6: 0
+grey5: 0
+grey4: 0
+grey3: 0
+grey2: 0
+grey1: 0
+grey0: 0
+firebrick4: 68
+firebrick3: 68
+firebrick2: 101
+firebrick1: 101
+magenta: 99
+darkslateblue: 42
+lightcoral: 114
+palegreen4: 49
+palegreen3: 57
+palegreen2: 94
+palegreen1: 94
+turquoise4: 18
+turquoise3: 22
+turquoise2: 27
+turquoise1: 31
+blue4: 2
+blue3: 2
+blue2: 3
+blue1: 3
+mediumaquamarine: 58
+palegoldenrod: 122
+on: 2116
+purple4: 38
+purple3: 38
+purple2: 71
+mediumseagreen: 53
+purple1: 71
+springgreen4: 17
+springgreen3: 25
+springgreen2: 29
+springgreen1: 29
+slategrey: 50
+lightslateblue: 79
+tan4: 73
+tan3: 81
+tan2: 113
+tan1: 117
+rosybrown: 82
+peru: 81
+burlywood: 118
+oldlace: 127
+mediumblue: 2
+coral: 109
+seashell: 127
+whitesmoke: 127
+darkgrey: 86
+mediumorchid4: 42
+mediumorchid3: 74
+mediumorchid2: 79
+mediumorchid1: 111
+paleturquoise4: 50
+paleturquoise3: 90
+paleturquoise2: 95
+paleturquoise1: 95
+grey99: 127
+lightskyblue: 91
+grey98: 127
+lightgrey: 90
+grey97: 127
+grey96: 127
+grey95: 127
+grey94: 127
+grey93: 123
+grey92: 123
+grey91: 123
+grey90: 123
+lightsteelblue4: 46
+lightsteelblue3: 86
+lightsteelblue2: 91
+slategray: 50
+lightsteelblue1: 91
+steelblue: 50
+magenta4: 66
+magenta3: 66
+magenta2: 99
+magenta1: 99
+saddlebrown: 72
+firebrick: 68
+grey89: 123
+grey88: 123
+grey87: 123
+grey86: 123
+grey85: 123
+grey84: 123
+grey83: 90
+grey82: 90
+grey81: 90
+grey80: 90
+lightsalmon: 113
+draw: 2084
+slategray4: 46
+slategray3: 86
+chartreuse: 60
+slategray2: 91
+slategray1: 91
+grey79: 90
+grey78: 86
+grey77: 86
+grey76: 86
+grey75: 86
+grey74: 86
+grey73: 86
+grey72: 86
+lightgoldenrodyellow: 126
+grey71: 86
+grey70: 86
+linen: 127
+darkgoldenrod4: 76
+darkgoldenrod3: 80
+darkgoldenrod2: 116
+darkgoldenrod1: 116
+olivedrab: 48
+grey69: 86
+cyan: 31
+grey68: 86
+grey67: 86
+grey66: 86
+grey65: 86
+grey64: 82
+grey63: 82
+grey62: 82
+grey61: 82
+grey60: 82
+steelblue4: 46
+steelblue3: 50
+violetred4: 69
+steelblue2: 55
+violetred3: 69
+steelblue1: 55
+violetred2: 106
+darkgray: 86
+violetred1: 106
+yellow: 124
+grey59: 82
+lightgray: 90
+grey58: 82
+grey57: 82
+grey56: 82
+grey55: 82
+grey54: 82
+grey53: 82
+grey52: 82
+grey51: 82
+grey50: 45
+darkgoldenrod: 80
+wheat: 122
+grey49: 45
+grey48: 45
+grey47: 45
+grey46: 45
+deeppink4: 65
+grey45: 45
+deeppink3: 65
+grey44: 45
+deeppink2: 98
+grey43: 45
+darkseagreen: 86
+deeppink1: 102
+grey42: 45
+grey41: 45
+darkseagreen4: 49
+grey40: 45
+darkseagreen3: 90
+darkseagreen2: 94
+darkseagreen1: 94
+gray100: 127
+olivedrab4: 48
+olivedrab3: 89
+olivedrab2: 93
+olivedrab1: 93
+khaki: 122
+gold4: 76
+grey39: 45
+gold3: 84
+grey38: 45
+gold2: 120
+grey37: 45
+gold1: 120
+grey36: 45
+grey35: 41
+grey34: 41
+orangered: 104
+grey33: 41
+grey32: 41
+grey31: 41
+grey30: 41
+sienna4: 72
+sienna3: 77
+sienna2: 109
+sienna1: 113
+lightskyblue4: 46
+lightskyblue3: 86
+purple: 71
+snow: 127
+lightskyblue2: 91
+lightskyblue1: 91
+honeydew4: 82
+honeydew3: 90
+honeydew2: 127
+honeydew1: 127
+deepskyblue4: 14
+grey29: 41
+lightgreen: 94
+deepskyblue3: 18
+grey28: 41
+deepskyblue2: 23
+grey27: 41
+deepskyblue1: 23
+grey26: 41
+grey25: 41
+grey24: 41
+grey23: 41
+grey22: 41
+grey21: 37
+grey20: 37
+lightgoldenrod: 122
+indianred: 77
+orchid: 111
+grey19: 37
+grey18: 37
+grey17: 37
+grey16: 4
+grey15: 4
+grey14: 4
+mediumpurple4: 42
+grey13: 4
+mediumpurple3: 78
+grey12: 4
+mediumpurple2: 79
+grey11: 4
+mediumpurple1: 83
+grey10: 4
+navy: 2
+darkkhaki: 85
+indianred4: 73
+indianred3: 73
+palevioletred4: 73
+indianred2: 109
+palevioletred3: 78
+indianred1: 109
+palevioletred2: 110
+palevioletred1: 114
+beige: 127
+khaki4: 81
+khaki3: 85
+khaki2: 122
+darkred: 64
+khaki1: 126
+blue: 3
+skyblue4: 46
+skyblue3: 54
+skyblue2: 55
+skyblue1: 91
+lightcyan4: 50
+lightcyan3: 90
+lightcyan2: 95

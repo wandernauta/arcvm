@@ -1,8 +1,8 @@
 # Makefile for building arcvm, the ARC virtual machine
 
 CC := gcc
-LDFLAGS := $(shell pkg-config --libs sdl) -lsigsegv -lprofiler
-CFLAGS := -Wall -Wextra -Wno-unused-variable -pedantic -std=c99 -g -O0 -pipe $(shell pkg-config --cflags sdl)
+LDFLAGS := $(shell sdl-config --libs) -lsigsegv -lprofiler
+CFLAGS := -Wall -Wextra -Wno-unused-variable -pedantic -std=c99 -g -O4 -pipe $(shell sdl-config --cflags)
 
 all: arcvm tags
 

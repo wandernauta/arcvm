@@ -12,6 +12,9 @@
 // 'Video memory'
 static SDL_Surface* screen;
 
+uint16_t xpos;
+uint16_t ypos;
+
 // User memory
 static uint8_t m[USERSPACE];
 

@@ -114,7 +114,8 @@ int arcvm() {
                     break;
                 case 6:
                     // sth
-                    assert(false);
+                    stb(addr, (uint8_t)(r[rd] >> 0));
+                    stb(addr+1, (uint8_t)(r[rd] >> 8));
                     break;
                 default:
                     if (inst == 0xFFFFFFFF) {

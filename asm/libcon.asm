@@ -18,9 +18,8 @@
 
 
 ! 
-! libgfx
+! libcon
 ! ------
 ! 
-! The libgfx library provides higher-level subroutines and utilities for using the virtual display.
+! The libcon library provides subroutines for outputting text.
 ! 
-

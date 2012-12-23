@@ -1,3 +1,8 @@
-# 1 "liblib.arc"
-# 1 "<command-line>"
-# 1 "liblib.arc"
+
+! 
+! liblib
+! ------
+! 
+! The liblib library contains support subroutines for building ARC libraries.
+! 
+

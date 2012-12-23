@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cpp -traditional-cpp -P -x assembler-with-cpp -nostdinc $1 -o $2

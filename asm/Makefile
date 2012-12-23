@@ -1,3 +1,5 @@
+# Makefile for preprocessing the ARC standard library.
+
 LIBS := \
 	liblib.asm \
 	libchk.asm \
@@ -6,15 +8,24 @@ LIBS := \
 	libdiv.asm \
 	libgfx.asm \
 	libmem.asm \
+	libfnt.asm \
+	libcon.asm \
 	libmth.asm \
 	libmul.asm \
 	librle.asm \
 	libstr.asm
 
-PP ?= cpp
+all: stdlib README.mkd
 
 stdlib: $(LIBS)
 
+README.mkd: $(LIBS)
+	@echo "- Creating $@..."
+	@cat lib*.arc | grep "^\!" | sed "s/^\! //" > README.mkd
+
 %.asm: %.arc
-	@echo "Preprocessing $< ($(PP))"
-	@$(PP) -x assembler-with-cpp -nostdinc $< -o $@
+	@echo "- Processing $<..."
+	@../support/arcpp $< $@
+
+clean:
+	@rm -v $(LIBS)

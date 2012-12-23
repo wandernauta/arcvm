@@ -9,6 +9,7 @@
 
 
 
+
 ! 
 ! libdev
 ! ------
@@ -22,5 +23,14 @@
 ! ------
 ! 
 ! The libgfx library provides higher-level subroutines and utilities for using the virtual display.
+! 
+
+
+! 
+! libfnt
+! ------
+! 
+! The libfnt library contains subroutines that draw text to the screen in a
+! simple bitmap font.
 ! 
 

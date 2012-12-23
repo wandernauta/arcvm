@@ -1,0 +1,76 @@
+
+libchk
+------
+
+The libchk utility library provides macros and subroutines that facilitate
+testing libraries and user code.
+
+
+libcol
+------
+
+The libcol library provides assemble-time constants that expand to 8-bit
+color values. The color values can be written to the screen directly.
+
+
+libcon
+------
+
+The libcon library provides subroutines for outputting text.
+
+
+libdev
+------
+
+The libdev library provides higher-level access to virtual peripherals.
+
+
+libdiv
+------
+
+The libdiv library provides signed and unsigned integer division, as well as
+modulo operations.
+
+libfnt
+------
+
+The libfnt library contains subroutines that draw text to the screen in a
+simple bitmap font.
+
+
+libgfx
+------
+
+The libgfx library provides higher-level subroutines and utilities for using the virtual display.
+
+
+liblib
+------
+
+The liblib library contains support subroutines for building ARC libraries.
+
+
+libmem
+------
+
+The libmem library provides higher-level access to the ARC memory subsystem.
+
+
+libmth
+------
+
+The libmth library provides simple math-related subroutines.
+
+
+libmul
+------
+
+The libmth library provides multiplication using the Booth algorithm.
+
+
+librle
+------
+
+The librle library contains a decoder for a simple Run-Length Encoding
+format.
+

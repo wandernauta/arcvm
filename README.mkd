@@ -26,6 +26,24 @@ The VM ships with a host of examples in the asm/ directory.
 - logo.bin: Draws the arcvm logo to the screen.
 - pixel.bin: Draws a palette to the screen.
 
+## Libraries
+
+A number of utility libraries are available:
+
+- libchk.arc: Testing
+- libcol.arc: Color names
+- libcon.arc: Console output
+- libdev.arc: Device addresses
+- libdiv.arc: Integer division
+- libfnt.arc: Font rendering
+- libgfx.arc: Graphics support
+- liblib.arc: Library support
+- libmem.arc: Memory operations
+- libmth.arc: Basic math
+- libmul.arc: Integer multiplication
+- librle.arc: Run-length encoding
+- libstr.arc: String operations
+
 ## License
 
 Arcvm is distributed under the terms of the ISC License. Read the LICENSE.mkd

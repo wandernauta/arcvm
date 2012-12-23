@@ -1,4 +1,4 @@
-# Makefile for preprocessing the ARC standard library.
+# Makefile for preprocessing the ARC standard library and examples.
 
 LIBS := \
 	liblib.asm \
@@ -15,9 +15,13 @@ LIBS := \
 	librle.asm \
 	libstr.asm
 
-all: stdlib README.mkd
+SAMPLES := \
+	logo.asm
+
+all: stdlib samples README.mkd
 
 stdlib: $(LIBS)
+samples: $(SAMPLES)
 
 README.mkd: $(LIBS)
 	@echo "- Creating $@..."

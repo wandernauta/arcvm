@@ -13,6 +13,32 @@ The libcol library provides assemble-time constants that expand to 8-bit
 color values. The color values can be written to the screen directly.
 
 
+**BLACK**: Pitch black.
+
+**BLUE**: Bright blue.
+
+**BROWN**: Brownish.
+
+**CYAN**: Very bright blue.
+
+**GREEN**: Bright green.
+
+**MAROON**: Dark red.
+
+**NAVY**: Dark blue.
+
+**OLIVE**: Muddy green.
+
+**ORANGE**: Bright orange.
+
+**PINK**: Hot pink.
+
+**RED**: Bright red.
+
+**WHITE**: Full white.
+
+**YELLOW**: Bright yellow.
+
 libcon
 ------
 
@@ -24,6 +50,33 @@ libdev
 
 The libdev library provides higher-level access to virtual peripherals.
 
+
+**V_COLOR**: Video color port offset (8 bits)
+
+Color (pixel) data should be written to this port. Writing to this port
+'paints' the pixel on the screen.
+
+**V_CMD**: Video command port offset (8 bits)
+
+Write a byte to this port to update the screen. The store operation will
+return when the screen is updated - this can take multiple milliseconds
+depending on configuration.
+
+**V_ADDR_X**: Video X coordinate port offset
+
+Write the X coordinate of the pixel you want to paint to this port before
+writing the color.
+
+**V_ADDR_Y**: Video Y coordinate port offset
+
+Write the Y coordinate of the pixel you want to paint to this port before
+writing the color.
+
+**SCREENW**: The width of the virtual screen in pixels
+
+**SCREENH**: The height of the virtual screen in pixels
+
+**MEM_IO**: The begin of the I/O mapped memory space, in bytes. 
 
 libdiv
 ------
@@ -47,8 +100,32 @@ The libgfx library provides higher-level subroutines and utilities for using the
 liblib
 ------
 
-The liblib library contains support subroutines for building ARC libraries.
+The liblib library contains support subroutines and macros for building ARC
+libraries.
 
+**data**: Begins a non-executed region. (arcpp macro)
+
+Any constants should be put in a non-executed region to prevent them from
+being interpreted as instructions. Expands to a branch-always instruction.
+
+**enddata**: Ends a non-executed region. (arcpp macro)
+
+This macro expands to a label that matches the label branched to by the
+data() macro.
+
+**mangle**: Adds the required name mangling to use names in macro's. (arcpp macro)
+
+Used by the const and equ macro's.
+
+**const**: Define an in-memory value. (arcpp macro)
+
+Expands to an in-memory value (i.e. a label followed by raw data) in both
+mangled and unmangled forms. Should be contained in data()/enddata() pairs
+to prevent execution.
+
+**equ**: Define an assembly-time value. (arcpp macro)
+
+Expands to both an unmangled and a mangled .equ - an assembly-time constant.
 
 libmem
 ------

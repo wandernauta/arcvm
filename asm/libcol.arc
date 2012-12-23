@@ -11,22 +11,56 @@
 ! color values. The color values can be written to the screen directly.
 ! 
 
-    .begin
+! 
+! **BLACK**: Pitch black.
+equ(BLACK, 0)
 
-    BLACK .equ 0
-    BLUE .equ 3
-    BROWN .equ 164
-    CYAN .equ 191
-    GREEN .equ 28
-    MAROON .equ 32
-    NAVY .equ 1
-    OLIVE .equ 132
-    ORANGE .equ 236
-    PINK .equ 227
-    RED .equ 224
-    WHITE .euq 255
-    YELLOW .equ 252
+! 
+! **BLUE**: Bright blue.
+equ(BLUE, 3)
 
-    .end
+! 
+! **BROWN**: Brownish.
+equ(BROWN, 164)
+
+! 
+! **CYAN**: Very bright blue.
+equ(CYAN, 191)
+
+! 
+! **GREEN**: Bright green.
+equ(GREEN, 28)
+
+! 
+! **MAROON**: Dark red.
+equ(MAROON, 32)
+
+! 
+! **NAVY**: Dark blue.
+equ(NAVY, 1)
+
+! 
+! **OLIVE**: Muddy green.
+equ(OLIVE, 132)
+
+! 
+! **ORANGE**: Bright orange.
+equ(ORANGE, 236)
+
+! 
+! **PINK**: Hot pink.
+equ(PINK, 227)
+
+! 
+! **RED**: Bright red.
+equ(RED, 224)
+
+! 
+! **WHITE**: Full white.
+equ(WHITE, 255)
+
+! 
+! **YELLOW**: Bright yellow.
+equ(YELLOW, 252)
 
 #endif

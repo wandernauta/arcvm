@@ -68,268 +68,284 @@ int arcvm() {
         }
 
         if (TRACE_INSTRS) {
-            printf("pc %d inst %08x\n", pc, inst);
+            printf("pc %d inst %08x op1 %u op2 %u op3 %u rd %u \n", pc, inst, op1, op2, op3, rd);
         }
 
         // Decode and execute instruction
-        if (op1 == 3) {
-            // ld or st
-            uint32_t addr = r[a] + b;
+        switch(op1) {
+            case 3:
+                // ld or st
+                if (false) {}
+                uint32_t addr = r[a] + b;
 
-            switch(op3) {
-                case 0:
-                    // ld
-                    // Loads a word.
-                    if (addr % WORD != 0) assert(false);
-                    r[rd] = load(addr);
-                    break;
-                case 1:
-                    // ldub
-                    // Loads an unsigned byte (zero-pads).
-                    r[rd] = ldb(addr);
-                    break;
-                case 9:
-                    // ldsb
-                    // Loads a signed byte (sign-extends).
-                    r[rd] = (int8_t)ldb(addr);
-                    break;
-                case 2:
-                    // lduh
-                    // Loads an unsigned halfword (zero-pads)
-                    if (addr % HALFWORD != 0) assert(false);
-                    r[rd] = load(addr);
-                    r[rd] = (uint32_t)(r[rd]) >> 16;
-                    break;
-                case 10:
-                    // ldsh
-                    // Loads a signed halfword (sign-extends).
-                    if (addr % HALFWORD != 0) assert(false);
-                    r[rd] = load(addr);
-                    r[rd] = r[rd] >> 16;
-                    break;
-                case 4:
-                    // st
-                    // Stores a word.
-                    store(addr, r[rd]);
-                    break;
-                case 5:
-                    // stb
-                    // Stores a byte.
-                    stb(addr, (uint8_t)(r[rd]));
-                    break;
-                case 6:
-                    // sth
-                    stb(addr, (uint8_t)(r[rd] >> 0));
-                    stb(addr+1, (uint8_t)(r[rd] >> 8));
-                    break;
-                default:
-                    if (inst == 0xFFFFFFFF) {
-                        // halt
-                        running = false;
-                    } else {
-                        // unknown
-                        assert(false);
+                switch(op3) {
+                    case 0:
+                        // ld
+                        // Loads a word.
+                        if (addr % WORD != 0) assert(false);
+                        r[rd] = load(addr);
                         break;
-                    }
-            }
-        } else if (op1 == 2) {
-            // arithmetic and logical
+                    case 1:
+                        // ldub
+                        // Loads an unsigned byte (zero-pads).
+                        r[rd] = ldb(addr);
+                        break;
+                    case 9:
+                        // ldsb
+                        // Loads a signed byte (sign-extends).
+                        r[rd] = (int8_t)ldb(addr);
+                        break;
+                    case 2:
+                        // lduh
+                        // Loads an unsigned halfword (zero-pads)
+                        if (addr % HALFWORD != 0) assert(false);
+                        r[rd] = load(addr);
+                        r[rd] = (uint32_t)(r[rd]) >> 16;
+                        break;
+                    case 10:
+                        // ldsh
+                        // Loads a signed halfword (sign-extends).
+                        if (addr % HALFWORD != 0) assert(false);
+                        r[rd] = load(addr);
+                        r[rd] = r[rd] >> 16;
+                        break;
+                    case 4:
+                        // st
+                        // Stores a word.
+                        store(addr, r[rd]);
+                        break;
+                    case 5:
+                        // stb
+                        // Stores a byte.
+                        stb(addr, (uint8_t)(r[rd]));
+                        break;
+                    case 6:
+                        // sth
+                        stb(addr, (uint8_t)(r[rd] >> 0));
+                        stb(addr+1, (uint8_t)(r[rd] >> 8));
+                        break;
+                    default:
+                        if (inst == 0xFFFFFFFF) {
+                            // halt
+                            running = false;
+                        } else {
+                            // unknown
+                            assert(false);
+                            break;
+                        }
+                }
+            break;
+            case 2:
+                // arithmetic and logical
 
-            switch (op3) {
-              case 0 + 16:
-                // addcc
-                r[rd] = r[a] + b;
-                cc(r[rd]);
-                break;
-              case 0:
-                // add
-                r[rd] = r[a] + b;
-                break;
-              case 1 + 16:
-                // andcc
-                r[rd] = r[a] & b;
-                cc(r[rd]);
-                break;
-              case 1:
-                // and
-                r[rd] = r[a] & b;
-                break;
-              case 2 + 16:
-                // orcc
-                r[rd] = r[a] | b;
-                cc(r[rd]);
-                break;
-              case 2:
-                // or
-                r[rd] = r[a] | b;
-                break;
-              case 3 + 16:
-                // xorcc
-                r[rd] = r[a] ^ b;
-                cc(r[rd]);
-                break;
-              case 3:
-                // xor
-                r[rd] = r[a] ^ b;
-                break;
-              case 4 + 16:
-                // subcc
-                r[rd] = r[a] - b;
-                cc(r[rd]);
-                break;
-              case 4:
-                // sub
-                r[rd] = r[a] - b;
-                break;
-              case 5 + 16:
-                // andncc
-                r[rd] = r[a] & ~b;
-                cc(r[rd]);
-                break;
-              case 5:
-                // andn
-                r[rd] = r[a] & ~b;
-                break;
-              case 6 + 16:
-                // orncc
-                assert(false);
-                cc(r[rd]);
-                break;
-              case 6:
-                // orn
-                assert(false);
-                break;
-              case 7 + 16:
-                // xnorcc
-                assert(false);
-                cc(r[rd]);
-                break;
-              case 7:
-                // xnor
-                assert(false);
-                break;
-              case 38:
-                // srl
-                r[rd] = r[a] >> b;
-                break;
-              default:
-                // unknown
-                break;
-              }
-        } else if (op1 == 1) {
-            // call
-        } else if (op1 == 0) {
-            // sethi or branch
-            if (op2 == 4) {
-                // sethi
-                r[rd] = 0;
-                r[rd] |= (si22 << 10);
-            } else {
-                switch (cond) {
+                switch (op3) {
+                  case 0 + 16:
+                    // addcc
+                    r[rd] = r[a] + b;
+                    cc(r[rd]);
+                    break;
                   case 0:
-                    // bn: Branch never
+                    // add
+                    r[rd] = r[a] + b;
+                    break;
+                  case 1 + 16:
+                    // andcc
+                    r[rd] = r[a] & b;
+                    cc(r[rd]);
                     break;
                   case 1:
-                    // be: Branch equal
-                    if (psr & Z) {
-                        pc += 4 * i22;
-                        continue;
-                    }
+                    // and
+                    r[rd] = r[a] & b;
+                    break;
+                  case 2 + 16:
+                    // orcc
+                    r[rd] = r[a] | b;
+                    cc(r[rd]);
                     break;
                   case 2:
-                    // ble: Branch less or equal
-                    if (psr & Z || ((psr & N) ^ (psr & V))) {
-                        pc += 4 * i22;
-                        continue;
-                    }
+                    // or
+                    r[rd] = r[a] | b;
+                    break;
+                  case 3 + 16:
+                    // xorcc
+                    r[rd] = r[a] ^ b;
+                    cc(r[rd]);
                     break;
                   case 3:
-                    // bl: Branch less
-                    if ((psr & N) ^ (psr & V)) {
-                        pc += 4 * i22;
-                        continue;
-                    }
+                    // xor
+                    r[rd] = r[a] ^ b;
+                    break;
+                  case 4 + 16:
+                    // subcc
+                    r[rd] = r[a] - b;
+                    cc(r[rd]);
                     break;
                   case 4:
-                    // bleu: Branch less or equal unsigned
-                    if (psr & C || psr & Z) {
-                        pc += 4 * i22;
-                        continue;
-                    }
+                    // sub
+                    r[rd] = r[a] - b;
+                    break;
+                  case 5 + 16:
+                    // andncc
+                    r[rd] = r[a] & ~b;
+                    cc(r[rd]);
                     break;
                   case 5:
-                    // bcs: Branch carry set
-                    if (psr & C) {
-                        pc += 4 * i22;
-                        continue;
-                    }
-                    continue;
+                    // andn
+                    r[rd] = r[a] & ~b;
+                    break;
+                  case 6 + 16:
+                    // orncc
+                    assert(false);
+                    cc(r[rd]);
                     break;
                   case 6:
-                    // bneg; Branch negative
-                    if (psr & N) {
-                        pc += 4 * i22;
-                        continue;
-                    }
+                    // orn
+                    assert(false);
+                    break;
+                  case 7 + 16:
+                    // xnorcc
+                    assert(false);
+                    cc(r[rd]);
                     break;
                   case 7:
-                    // bvs: Branch overflow set
-                    if (psr & V) {
-                        pc += 4 * i22;
-                        continue;
-                    }
+                    // xnor
+                    assert(false);
                     break;
-                  case 8:
-                    // ba: Branch always
-                    pc += 4 * i22;
+                  case 38:
+                    // srl
+                    r[rd] = r[a] >> b;
+                    break;
+                  case 56:
+                    // jmpl
+                    r[rd] = pc;
+                    pc = r[a] + b;
                     continue;
                     break;
-                  case 9:
-                    // bne: Branch not equal
-                    if (!(psr & Z)) {
-                        pc += 4 * i22;
-                        continue;
-                    }
-                    break;
-                  case 10:
-                    // bg
-                    assert(false);
-                    break;
-                  case 11:
-                    // bge
-                    assert(false);
-                    break;
-                  case 12:
-                    // bgu
-                    assert(false);
-                    break;
-                  case 13:
-                    // bcc
-                    if (!(psr & C)) {
-                        pc += 4 * i22;
-                        continue;
-                    }
-                    break;
-                  case 14:
-                    // bpos
-                    if (!(psr & N)) {
-                        pc += 4 * i22;
-                        continue;
-                    }
-                    break;
-                  case 15:
-                    // bvc
-                    if (!(psr & V)) {
-                        pc += 4 * i22;
-                        continue;
-                    }
-                    break;
                   default:
+                    // unknown
                     assert(false);
                     break;
                   }
-                }
-            } else {
+                case 1:
+                    // call
+                    if (false) {}
+                    uint32_t dest = inst << 2;
+                    r[15] = pc;
+                    pc = dest;
+                break;
+                case 0:
+                    // sethi or branch
+                    if (op2 == 4) {
+                        // sethi
+                        r[rd] = 0;
+                        r[rd] |= (si22 << 10);
+                    } else {
+                        switch (cond) {
+                          case 0:
+                            // bn: Branch never
+                            break;
+                          case 1:
+                            // be: Branch equal
+                            if (psr & Z) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 2:
+                            // ble: Branch less or equal
+                            if (psr & Z || ((psr & N) ^ (psr & V))) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 3:
+                            // bl: Branch less
+                            if ((psr & N) ^ (psr & V)) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 4:
+                            // bleu: Branch less or equal unsigned
+                            if (psr & C || psr & Z) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 5:
+                            // bcs: Branch carry set
+                            if (psr & C) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            continue;
+                            break;
+                          case 6:
+                            // bneg; Branch negative
+                            if (psr & N) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 7:
+                            // bvs: Branch overflow set
+                            if (psr & V) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 8:
+                            // ba: Branch always
+                            pc += 4 * i22;
+                            continue;
+                            break;
+                          case 9:
+                            // bne: Branch not equal
+                            if (!(psr & Z)) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 10:
+                            // bg
+                            assert(false);
+                            break;
+                          case 11:
+                            // bge
+                            assert(false);
+                            break;
+                          case 12:
+                            // bgu
+                            assert(false);
+                            break;
+                          case 13:
+                            // bcc
+                            if (!(psr & C)) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 14:
+                            // bpos
+                            if (!(psr & N)) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          case 15:
+                            // bvc
+                            if (!(psr & V)) {
+                                pc += 4 * i22;
+                                continue;
+                            }
+                            break;
+                          default:
+                            assert(false);
+                            break;
+                          }
+                        }
+                break;
+                default:
                 assert(false);
             }
 

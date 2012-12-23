@@ -79,14 +79,12 @@ int arcvm() {
                 case 1:
                     // ldub
                     // Loads an unsigned byte (zero-pads).
-                    r[rd] = load(addr);
-                    r[rd] = (uint32_t)(r[rd]) >> 24;
+                    r[rd] = ldb(addr);
                     break;
                 case 9:
                     // ldsb
                     // Loads a signed byte (sign-extends).
-                    r[rd] = load(addr);
-                    r[rd] = r[rd] >> 24;
+                    r[rd] = (int8_t)ldb(addr);
                     break;
                 case 2:
                     // lduh

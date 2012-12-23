@@ -47,6 +47,29 @@ int32_t load(uint32_t byteaddr) {
     return 0;
 }
 
+uint8_t ldb(uint32_t byteaddr) {
+    // Byte-swap the correct word
+    if (TRACE_MEMORY) {
+        printf("ld b addr: %u word: %u ", byteaddr, byteaddr - (byteaddr % 4));
+    }
+
+    int32_t word = load(byteaddr - (byteaddr % 4));
+
+    if (TRACE_MEMORY) {
+        print32(word);
+        printf(" ");
+    }
+
+    int32_t sword = swap32(word);
+
+    if (TRACE_MEMORY) {
+        print32(sword);
+        printf("\n");
+    }
+
+    return ((char*)&sword)[byteaddr % 4];
+}
+
 void store(uint32_t byteaddr, int32_t val) {
     uint32_t wordaddr = byteaddr / 4;
     uint32_t uval = (uint32_t)val;
@@ -98,6 +121,10 @@ void stb(uint32_t byteaddr, uint8_t byte) {
                 rect.w = VIDEO_SCALE;
                 rect.h = VIDEO_SCALE;
                 SDL_FillRect(screen, &rect, byte);
+
+                if (TRACE_MEMORY) {
+                    printf("px x: %u y: %u b: %u (%02x)\n", xpos, ypos, byte, byte);
+                }
 
                 break;
             case V_CMD:

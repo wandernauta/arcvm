@@ -52,10 +52,10 @@
 #define CHECK_CONFIG true
 
 // Trace (print) memory loads and stores
-#define TRACE_MEMORY true
+#define TRACE_MEMORY false
 
 // Trace (print) instructions
-#define TRACE_INSTRS true
+#define TRACE_INSTRS false
 
 // Display a run summary when the VM halts
 #define PRINT_SUMMARY true

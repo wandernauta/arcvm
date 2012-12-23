@@ -11,6 +11,14 @@
 ! 
 
 ! 
+! **COUT**: Console output port offset (8 bits)
+equ(COUT, 0)
+
+! 
+! **COSTAT**: Console status port offset (8 bits)
+equ(COSTAT, 4)
+
+! 
 ! **V_COLOR**: Video color port offset (8 bits)
 ! 
 ! Color (pixel) data should be written to this port. Writing to this port

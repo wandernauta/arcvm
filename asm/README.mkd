@@ -51,6 +51,10 @@ libdev
 The libdev library provides higher-level access to virtual peripherals.
 
 
+**COUT**: Console output port offset (8 bits)
+
+**COSTAT**: Console status port offset (8 bits)
+
 **V_COLOR**: Video color port offset (8 bits)
 
 Color (pixel) data should be written to this port. Writing to this port

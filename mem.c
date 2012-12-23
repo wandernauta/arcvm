@@ -19,6 +19,7 @@ void setup_memory() {
 
 int32_t load(uint32_t byteaddr) {
     uint32_t wordaddr = byteaddr / 4;
+    assert (byteaddr % 4 == 0);
 
     if (TRACE_MEMORY) printf("ld %u\n", byteaddr);
 

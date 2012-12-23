@@ -27,6 +27,10 @@
                                               .equ 255                   
                                               .equ 252                   
                                               .equ 252                   
+                                              .equ 0                     
+                                              .equ 0                     
+                                              .equ 4                     
+                                              .equ 4                     
                                               .equ 0xF1                  
                                               .equ 0xF1                  
                                               .equ 0xF2                  
@@ -1414,6 +1418,7 @@ __end_libdev_data: 2060
 PINK: 227
 WHITE: 255
 CYAN: 191
+COSTAT: 4
 _OLIVE0: 132
 _V_COLOR0: 241
 done: 2172
@@ -1425,6 +1430,7 @@ SCREENW: 320
 nexty: 2096
 OLIVE: 132
 V_ADDR_Y: 248
+_COUT0: 0
 IMAGE_W: 104
 V_ADDR_X: 244
 _MEM_IO0: 2056
@@ -1437,7 +1443,9 @@ _V_ADDR_Y0: 248
 _YELLOW0: 252
 _WHITE0: 255
 libdev_data: 2048
+_COSTAT0: 4
 logo: 2184
+COUT: 0
 _CYAN0: 191
 YELLOW: 252
 MEM_IO: 2052

@@ -1,27 +1,44 @@
 (ARCTools Version 2.1.2)
  HexLoc     DecLoc    MachWord   Label        Instruction                Comment
-                                              .equ 0x3fffc0              !Starting point of the memory mapped region
-                                              .equ 0x0                   !0xffff0000 Console Data Port
-                                              .equ 0x4                   !0xffff0004 Console Status Port.
-                                                                         
                                               .org 2048                  
-00000800  0000002048  84000000                add %r0, %r0, %r2          
-00000804  0000002052  88000000                add %r0, %r0, %r4          
-00000808  0000002056  093fffc0                sethi 4194240, %r4         
-0000080c  0000002060  c600abb8  Loop:         ld %r2, [3000], %r3        !Load next char into r3
-00000810  0000002064  8680c000                addcc %r3, %r0, %r3        
-00000814  0000002068  02800007                be 7                       ! stop if null.
-00000818  0000002072  c2092004  Wait:         ldub %r4, [4], %r1         
-0000081c  0000002076  82886080                andcc %r1, 128, %r1        
-00000820  0000002080  02bffffe                be -2                      
-00000824  0000002084  c6292000                stb %r3, %r4, [0]          !Print to console
-00000828  0000002088  8400a004                add %r2, 4, %r2            !increment String offset (r2)
-0000082c  0000002092  10bffff8                ba -8                      
-00000830  0000002096  ffffffff  End:          halt                       
-                                                                         
+                                              .equ 0                     
+                                              .equ 0                     
+                                              .equ 4                     
+                                              .equ 4                     
+                                              .equ 0xF1                  
+                                              .equ 0xF1                  
+                                              .equ 0xF2                  
+                                              .equ 0xF2                  
+                                              .equ 0xF4                  
+                                              .equ 0xF4                  
+                                              .equ 0xF8                  
+                                              .equ 0xF8                  
+                                              .equ 320                   
+                                              .equ 320                   
+                                              .equ 240                   
+                                              .equ 240                   
+00000800  0000002048  10800003  libdev_data:  ba 3                       
+00000804  0000002052  ffff0000  MEM_IO:                                  
+00000808  0000002056  ffff0000  _MEM_IO0:                                
+0000080c  0000002060            __end_libdev_data:                             
+00000810  0000002064  10800008  libcon_data:  ba 8                       
+00000814  0000002068            putc:                                    
+00000818  0000002072  c8002804                ld [2052], %r4             
+0000081c  0000002076  c2092004                ldub %r4, [4], %r1         
+00000820  0000002080  82886080                andcc %r1, 128, %r1        
+00000824  0000002084  02bffffc                be -4                      
+00000828  0000002088  c6292000                stb %r3, %r4, [0]          
+0000082c  0000002092  81c3e004                jmpl %r15, 4, %r0          
+00000830  0000002096            __end_libcon_data:                             
+00000834  0000002100  c600abb8  Loop:         ld %r2, [3000], %r3        ! Load next char into r3
+00000838  0000002104  8680e000                addcc %r3, 0, %r3          
+0000083c  0000002108  02800004                be 4                       ! Stop if null.
+00000840  0000002112  7ffffff5                call -11                   
+00000844  0000002116  8400a004                add %r2, 4, %r2            ! Increment string offset (r2)
+00000848  0000002120  10bffffb                ba -5                      
+0000084c  0000002124  ffffffff  End:          halt                       
                                               .org 3000                  
-                                                                         ! The "Hellow, world!" string
-00000bb8  0000003000  00000048  String:                                  
+00000bb8  0000003000  00000048  str:                                     
 00000bbc  0000003004  00000065
 00000bc0  0000003008  0000006c
 00000bc4  0000003012  0000006c
@@ -36,13 +53,31 @@
 00000be8  0000003048  00000021
 00000bec  0000003052  0000000a
 00000bf0  0000003056  00000000
-                                                                         
 
 --- Symbol Table ---
-BASE: 4194240
-String: 3000
-Wait: 2072
-End: 2096
-COUT: 0
-Loop: 2060
+__end_libdev_data: 2060
+MEM_IO: 2052
+V_CMD: 242
+Loop: 2100
+_V_CMD0: 242
+_V_ADDR_Y0: 248
+_V_COLOR0: 241
+_MEM_IO0: 2056
+_COUT0: 0
+SCREENW: 320
+_COSTAT0: 4
 COSTAT: 4
+End: 2124
+V_ADDR_Y: 248
+V_ADDR_X: 244
+str: 3000
+libcon_data: 2064
+_SCREENH0: 240
+SCREENH: 240
+putc: 2068
+_V_ADDR_X0: 244
+libdev_data: 2048
+COUT: 0
+_SCREENW0: 320
+V_COLOR: 241
+__end_libcon_data: 2096

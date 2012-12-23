@@ -40,7 +40,9 @@ int arcvm() {
         r[0] = 0;
 
         // Fetch and split instruction
+        assert(pc < USERSPACE);
         uint32_t inst = load(pc);
+
         uint32_t op1 = (inst >> 30);
         uint32_t op2 = (inst << 7) >> 29;
         uint32_t op3 = (inst << 7) >> 26;
@@ -132,107 +134,108 @@ int arcvm() {
                             // unknown
                             assert(false);
                             break;
-                        }
+                    }
                 }
-            break;
-            case 2:
-                // arithmetic and logical
+                break;
+                case 2:
+                    // arithmetic and logical
 
-                switch (op3) {
-                  case 0 + 16:
-                    // addcc
-                    r[rd] = r[a] + b;
-                    cc(r[rd]);
+                    switch (op3) {
+                      case 0 + 16:
+                        // addcc
+                        r[rd] = r[a] + b;
+                        cc(r[rd]);
+                        break;
+                      case 0:
+                        // add
+                        r[rd] = r[a] + b;
+                        break;
+                      case 1 + 16:
+                        // andcc
+                        r[rd] = r[a] & b;
+                        cc(r[rd]);
+                        break;
+                      case 1:
+                        // and
+                        r[rd] = r[a] & b;
+                        break;
+                      case 2 + 16:
+                        // orcc
+                        r[rd] = r[a] | b;
+                        cc(r[rd]);
+                        break;
+                      case 2:
+                        // or
+                        r[rd] = r[a] | b;
+                        break;
+                      case 3 + 16:
+                        // xorcc
+                        r[rd] = r[a] ^ b;
+                        cc(r[rd]);
+                        break;
+                      case 3:
+                        // xor
+                        r[rd] = r[a] ^ b;
+                        break;
+                      case 4 + 16:
+                        // subcc
+                        r[rd] = r[a] - b;
+                        cc(r[rd]);
+                        break;
+                      case 4:
+                        // sub
+                        r[rd] = r[a] - b;
+                        break;
+                      case 5 + 16:
+                        // andncc
+                        r[rd] = r[a] & ~b;
+                        cc(r[rd]);
+                        break;
+                      case 5:
+                        // andn
+                        r[rd] = r[a] & ~b;
+                        break;
+                      case 6 + 16:
+                        // orncc
+                        assert(false);
+                        cc(r[rd]);
+                        break;
+                      case 6:
+                        // orn
+                        assert(false);
+                        break;
+                      case 7 + 16:
+                        // xnorcc
+                        assert(false);
+                        cc(r[rd]);
+                        break;
+                      case 7:
+                        // xnor
+                        assert(false);
+                        break;
+                      case 38:
+                        // srl
+                        r[rd] = r[a] >> b;
+                        break;
+                      case 56:
+                        // jmpl
+                        r[rd] = pc;
+                        pc = r[a] + b;
+                        continue;
+                        break;
+                      default:
+                        // unknown
+                        assert(false);
+                        break;
+                      }
                     break;
-                  case 0:
-                    // add
-                    r[rd] = r[a] + b;
-                    break;
-                  case 1 + 16:
-                    // andcc
-                    r[rd] = r[a] & b;
-                    cc(r[rd]);
-                    break;
-                  case 1:
-                    // and
-                    r[rd] = r[a] & b;
-                    break;
-                  case 2 + 16:
-                    // orcc
-                    r[rd] = r[a] | b;
-                    cc(r[rd]);
-                    break;
-                  case 2:
-                    // or
-                    r[rd] = r[a] | b;
-                    break;
-                  case 3 + 16:
-                    // xorcc
-                    r[rd] = r[a] ^ b;
-                    cc(r[rd]);
-                    break;
-                  case 3:
-                    // xor
-                    r[rd] = r[a] ^ b;
-                    break;
-                  case 4 + 16:
-                    // subcc
-                    r[rd] = r[a] - b;
-                    cc(r[rd]);
-                    break;
-                  case 4:
-                    // sub
-                    r[rd] = r[a] - b;
-                    break;
-                  case 5 + 16:
-                    // andncc
-                    r[rd] = r[a] & ~b;
-                    cc(r[rd]);
-                    break;
-                  case 5:
-                    // andn
-                    r[rd] = r[a] & ~b;
-                    break;
-                  case 6 + 16:
-                    // orncc
-                    assert(false);
-                    cc(r[rd]);
-                    break;
-                  case 6:
-                    // orn
-                    assert(false);
-                    break;
-                  case 7 + 16:
-                    // xnorcc
-                    assert(false);
-                    cc(r[rd]);
-                    break;
-                  case 7:
-                    // xnor
-                    assert(false);
-                    break;
-                  case 38:
-                    // srl
-                    r[rd] = r[a] >> b;
-                    break;
-                  case 56:
-                    // jmpl
-                    r[rd] = pc;
-                    pc = r[a] + b;
-                    continue;
-                    break;
-                  default:
-                    // unknown
-                    assert(false);
-                    break;
-                  }
                 case 1:
                     // call
                     if (false) {}
-                    uint32_t dest = inst << 2;
+                    uint32_t dest = (uint32_t)inst << 2;
                     r[15] = pc;
-                    pc = dest;
-                break;
+                    pc += dest;
+                    break;
                 case 0:
                     // sethi or branch
                     if (op2 == 4) {

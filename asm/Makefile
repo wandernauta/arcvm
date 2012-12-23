@@ -16,7 +16,8 @@ LIBS := \
 	libstr.asm
 
 SAMPLES := \
-	logo.asm
+	logo.asm \
+	hello.asm
 
 all: stdlib samples README.mkd
 

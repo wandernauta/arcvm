@@ -1,4 +1,11 @@
 #pragma once
+//
+// arcvm.h
+// Sets up memory and state for arcvm.
+//
+// Copyright (C) 2012, 2013 Wander Nauta
+// This file is distributed under the MIT license - see LICENSE.mkd.
+//
 
 // System includes
 #include <assert.h>

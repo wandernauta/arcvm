@@ -1,4 +1,11 @@
 #include "mem.h"
+//
+// mem.c
+// ARC memory subsystem implementation
+//
+// Copyright (C) 2012, 2013 Wander Nauta
+// This file is distributed under the MIT license - see LICENSE.mkd.
+//
 
 void setup_memory() {
     memset(m, 0, USERSPACE);

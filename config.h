@@ -1,4 +1,12 @@
 #pragma once
+//
+// config.h
+// Compile-time configuration
+//
+// Copyright (C) 2012, 2013 Wander Nauta
+// This file is distributed under the MIT license - see LICENSE.mkd.
+//
+
 #include <stdint.h>
 #include <stdbool.h>
 

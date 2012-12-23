@@ -1,3 +1,11 @@
+//
+// arcvm.c
+// Sets up memory and state for arcvm.
+//
+// Copyright (C) 2012, 2013 Wander Nauta
+// This file is distributed under the MIT license - see LICENSE.mkd.
+//
+
 #include "arcvm.h"
 
 int main(int argc, char** argv) {

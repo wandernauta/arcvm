@@ -1,0 +1,35 @@
+# arcvm
+
+This is arcvm, an (unofficial) virtual machine for the fictional ARC
+architecture, as used in the book "Computer Architecture and Organization: An
+Integrated Approach" by Miles Murdocca and Vincent Heuring. It tries to be
+completely compatible with the instruction set described in the book, but also
+integrates the improvements in recent versions of the ARCTools, as well as
+adding some features on its own. The practical upshot of this is that all
+programs written for, and assembled with, the ARCTools should run unmodified on
+arcvm.
+
+Compared with the official simulator, arcvm has the following features:
+
+- Simple video output. A scaled 320x240, 8-bit color, fixed-palette virtual
+  display is available.
+- Performance. The virtual machine itself is written in C and plenty fast.
+- Complete compatibility. Arcvm implements the same instruction set as the
+  ARCTools, and runs the .bin files the ARCTools assembler generates.
+
+## Examples
+
+The VM ships with a host of examples in the asm/ directory.
+
+- colnames.bin: Fills the screen with pixels of changing color. Slow.
+- hello.bin: Prints 'Hello, world!' to the console.
+- logo.bin: Draws the arcvm logo to the screen.
+- pixel.bin: Draws a palette to the screen.
+
+## License
+
+Arcvm is distributed under the terms of the ISC License. Read the LICENSE.mkd
+file for details.
+
+**NOTE: If you are looking for the official ARCTools assembler and simulator,
+this is not it.  Go to <http://iiusatech.com/murdocca/CAO/>.**

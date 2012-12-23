@@ -1,3 +1,10 @@
+//
+// vm.c
+// Main instruction loop.
+//
+// Copyright (C) 2012, 2013 Wander Nauta
+// This file is distributed under the MIT license - see LICENSE.mkd.
+//
 #include "vm.h"
 
 void setup_registers() {

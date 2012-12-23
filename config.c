@@ -1,4 +1,12 @@
 #include "config.h"
+//
+// config.c
+// Compile-time configuration
+//
+// Copyright (C) 2012, 2013 Wander Nauta
+// This file is distributed under the MIT license - see LICENSE.mkd.
+//
+
 #include "assert.h"
 
 void check_config() {

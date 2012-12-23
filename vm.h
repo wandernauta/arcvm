@@ -1,4 +1,11 @@
 #pragma once
+//
+// vm.h
+// Main instruction loop.
+//
+// Copyright (C) 2012, 2013 Wander Nauta
+// This file is distributed under the MIT license - see LICENSE.mkd.
+//
 
 #include <stdint.h>
 

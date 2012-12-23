@@ -13,12 +13,15 @@
 
 data(libcon)
 
+! 
+! **putc**: Writes a character (unsigned 8-bit) to the console.
+! 
 putc:   
-        ld [MEM_IO], %r4
-        ldub [%r4 + COSTAT], %r1
-        andcc %r1, 0x80, %r1
+        ld [MEM_IO], %r30
+        ldub [%r30 + COSTAT], %r31
+        andcc %r1, 0x80, %r31
         be putc
-        stb %r3, [%r4 + COUT]
+        stb %r3, [%r30 + COUT]
         jmpl %r15 + 4, %r0
 
 enddata(libcon)

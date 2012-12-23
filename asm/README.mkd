@@ -45,6 +45,9 @@ libcon
 The libcon library provides subroutines for outputting text.
 
 
+**putc**: Writes a character (unsigned 8-bit) to the console.
+
+
 libdev
 ------
 

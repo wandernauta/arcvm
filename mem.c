@@ -8,7 +8,7 @@
 //
 
 void setup_memory() {
-    memset(m, 0, USERSPACE);
+    m = calloc(USERSPACE, 1);
 
     if (VIDEO_ENABLED) {
         SDL_Init(SDL_INIT_VIDEO);
@@ -33,21 +33,17 @@ int32_t load(uint32_t byteaddr) {
         // Load from I/O address space
         if (TRACE_MEMORY) printf("ld io %u (+%u)\n", byteaddr, byteaddr - MEM_IO);
 
-        switch (byteaddr) {
-            case C_STAT:
-                // Return all ones: everything is OK
+        if (byteaddr == C_STAT) {
+            // Return all ones: everything is OK
+            return 0xFFFFFFFF;
+        } else if (byteaddr == V_STAT) {
+            if (VIDEO_ENABLED) {
                 return 0xFFFFFFFF;
-                break;
-            case V_STAT:
-                if (VIDEO_ENABLED) {
-                    return 0xFFFFFFFF;
-                } else {
-                    return 0x00000000;
-                }
-                break;
-            default:
-                // Unknown or unreadable port
-                break;
+            } else {
+                return 0x00000000;
+            }
+        } else {
+            // unknown
         }
     } else {
         assert(false);
@@ -84,19 +80,15 @@ void store(uint32_t byteaddr, int32_t val) {
 
     if (TRACE_MEMORY) printf("st %d=%08x -> %u\n", val, val, byteaddr);
 
-    switch (byteaddr) {
-        case V_ADDR_X:
-            xpos = val;
-            break;
-        case V_ADDR_Y:
-            ypos = val;
-            break;
-        default:
-            stb(byteaddr+0, (uval>>0) & 0xff);
-            stb(byteaddr+1, (uval>>8) & 0xff);
-            stb(byteaddr+2, (uval>>16) & 0xff);
-            stb(byteaddr+3, (uval>>24) & 0xff);
-            break;
+    if (byteaddr == V_ADDR_X) {
+        xpos = val;
+    } else if (byteaddr == V_ADDR_Y) {
+        ypos = val;
+    } else {
+        stb(byteaddr+0, (uval>>0) & 0xff);
+        stb(byteaddr+1, (uval>>8) & 0xff);
+        stb(byteaddr+2, (uval>>16) & 0xff);
+        stb(byteaddr+3, (uval>>24) & 0xff);
     }
 }
 
@@ -111,38 +103,30 @@ void stb(uint32_t byteaddr, uint8_t byte) {
         m[byteaddr] = byte;
     } else if (byteaddr >= MEM_IO) {
         // Store to input/output mapping
-        
-        switch (byteaddr) {
-            case C_OUT:
-                putchar(byte);
-                break;
-            case V_COLOR:
-                if (false) {}
-                uint8_t* p = screen->pixels;
 
-                uint32_t px = xpos * VIDEO_SCALE;
-                uint32_t py = ypos * VIDEO_SCALE;
+        if (byteaddr == C_OUT) {
+            putchar(byte);
+        } else if (byteaddr == V_COLOR) {
+            if (false) {}
+            uint8_t* p = screen->pixels;
 
-                SDL_Rect rect;
-                rect.x = px;
-                rect.y = py;
-                rect.w = VIDEO_SCALE;
-                rect.h = VIDEO_SCALE;
-                SDL_FillRect(screen, &rect, byte);
+            uint32_t px = xpos * VIDEO_SCALE;
+            uint32_t py = ypos * VIDEO_SCALE;
 
-                if (TRACE_MEMORY) {
-                    printf("px x: %u y: %u b: %u (%02x)\n", xpos, ypos, byte, byte);
-                }
+            SDL_Rect rect;
+            rect.x = px;
+            rect.y = py;
+            rect.w = VIDEO_SCALE;
+            rect.h = VIDEO_SCALE;
+            SDL_FillRect(screen, &rect, byte);
 
-                break;
-            case V_CMD:
-                SDL_Flip(screen);
-                break;
-            default:
-                // Unknown I/O device
-                break;
+            if (TRACE_MEMORY) printf("px x: %u y: %u b: %u (%02x)\n", xpos, ypos, byte, byte);
+        } else if (byteaddr == V_CMD) {
+            SDL_Flip(screen);
+        } else {
+            // Unknown I/O device
         }
-
+        
         return;
     } else {
         assert(false);

@@ -16,7 +16,7 @@
 #include "mem.h"
 #include "bit.h"
 
-static int32_t r[NUM_REGS];
+static int32_t* r;
 
 static uint32_t pc = 2048; // Program counter
 static uint32_t psr = 0x0; // Processor status register

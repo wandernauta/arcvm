@@ -24,7 +24,7 @@ uint16_t xpos;
 uint16_t ypos;
 
 // User memory
-static uint8_t m[USERSPACE];
+static uint8_t* m;
 
 void setup_memory();
 int32_t load(uint32_t byte);

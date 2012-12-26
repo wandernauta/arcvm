@@ -14,7 +14,6 @@ void check_config() {
 
     assert(NUM_REGS >= 1);
     assert(USERSPACE >= 1);
-    assert(MEM_OS >= 0);
     assert(MEM_IO >= MEM_OS);
 
     assert(C_OUT);

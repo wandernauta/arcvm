@@ -8,9 +8,7 @@
 #include "vm.h"
 
 void setup_registers() {
-    for (uint32_t i = 0; i < NUM_REGS; i++) {
-        r[i] = 0;
-    }
+    r = calloc(NUM_REGS, 1);
 }
 
 bool condition(uint32_t cond) {

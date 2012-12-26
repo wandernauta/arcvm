@@ -12,7 +12,7 @@ void setup_memory() {
 
     if (VIDEO_ENABLED) {
         SDL_Init(SDL_INIT_VIDEO);
-        screen = SDL_SetVideoMode(VIDEO_WIDTH * VIDEO_SCALE, VIDEO_HEIGHT * VIDEO_SCALE, 8, 0);
+        screen = SDL_SetVideoMode(VIDEO_WIDTH * VIDEO_SCALE, VIDEO_HEIGHT * VIDEO_SCALE, 8, SDL_HWSURFACE | SDL_DOUBLEBUF);
         assert(screen);
     }
 }

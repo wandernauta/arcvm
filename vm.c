@@ -35,14 +35,14 @@ bool condition(uint32_t cond) {
     }
 }
 
-void cc(int32_t val) {
+void cc(int32_t result) {
     // Update condition codes
     psr = 0;
-    if (val < 0) psr |= N;
-    if (val == 0) psr |= Z;
-    if (val << 31) psr |= C;
+    if (result < 0) psr |= N;
+    if (result == 0) psr |= Z;
+    if (result << 31) psr |= C;
 
-    if (TRACE_INSTRS) printf("Update cc for val %d\n", val);
+    if (TRACE_INSTRS) printf("Update cc for val %d\n", result);
 }
 
 int arcvm() {
@@ -70,7 +70,7 @@ int arcvm() {
         uint32_t op2 = (inst << 7) >> 29;
         uint32_t op3 = (inst << 7) >> 26;
         uint32_t rd = (inst << 2) >> 27;
-        uint32_t a = (inst << 13) >> 27;
+        int32_t a = (inst << 13) >> 27;
         uint32_t cond = (inst << 3) >> 28;
 
         uint32_t si22 = ((inst << 10) >> 10);
@@ -80,7 +80,7 @@ int arcvm() {
         if (i22 & (1 << 21)) i22 |= (0xFFFFFFFF << 22);
 
         // Get either rs2 or simm13 as b
-        uint32_t b = 0;
+        int32_t b = 0;
         if (inst & (1 << 13)) {
             // Fetch as simm13
             if (inst & (1 << 12)) {

@@ -132,7 +132,7 @@ int arcvm() {
                     case 0:
                         // ld
                         // Loads a word.
-                        if (addr % WORD != 0) assert(false);
+                        assert(addr % WORD == 0);
                         r[rd] = load(addr);
                         break;
                     case 1:
@@ -148,14 +148,14 @@ int arcvm() {
                     case 2:
                         // lduh
                         // Loads an unsigned halfword (zero-pads)
-                        if (addr % HALFWORD != 0) assert(false);
+                        assert(addr % HALFWORD == 0);
                         r[rd] = load(addr);
                         r[rd] = (uint32_t)(r[rd]) >> 16;
                         break;
                     case 10:
                         // ldsh
                         // Loads a signed halfword (sign-extends).
-                        if (addr % HALFWORD != 0) assert(false);
+                        assert(addr % HALFWORD == 0);
                         r[rd] = load(addr);
                         r[rd] = r[rd] >> 16;
                         break;
@@ -179,7 +179,7 @@ int arcvm() {
                             // halt
                             running = false;
                         } else {
-                            // unknown
+                            // unknown memory instruction
                             assert(false);
                             break;
                     }
@@ -245,21 +245,21 @@ int arcvm() {
                         break;
                       case 6 + 16:
                         // orncc
-                        assert(false);
+                        r[rd] = r[a] | ~b;
                         cc(r[rd], r[a], b);
                         break;
                       case 6:
                         // orn
-                        assert(false);
+                        r[rd] = r[a] | ~b;
                         break;
                       case 7 + 16:
                         // xnorcc
-                        assert(false);
+                        r[rd] = r[a] ^ ~b;
                         cc(r[rd], r[a], b);
                         break;
                       case 7:
                         // xnor
-                        assert(false);
+                        r[rd] = r[a] ^ ~b;
                         break;
                       case 38:
                         // srl
@@ -272,7 +272,7 @@ int arcvm() {
                         continue;
                         break;
                       default:
-                        // unknown
+                        // unknown instruction
                         assert(false);
                         break;
                       }

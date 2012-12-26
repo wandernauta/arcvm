@@ -86,7 +86,7 @@ int arcvm() {
         r[0] = 0;
 
         // Fetch and split instruction
-        assert(pc < USERSPACE);
+        assert(pc < (uint32_t)USERSPACE * 1024);
         uint32_t inst = load(pc);
 
         uint32_t op1 = (inst >> 30);
@@ -306,7 +306,7 @@ int arcvm() {
         printf("\n   SUMMARY\n");
         printf(" - Halted after %d cycles, %d host clocks.\n", clks, (int)clock());
 
-        for (uint32_t i = 0; i < NUM_REGS; i++) {
+        for (int32_t i = 0; i < NUM_REGS; i++) {
             if (r[i] != 0) {
                 printf(" - %%r%d = %d = %08x\n", i, r[i], r[i]);
             }

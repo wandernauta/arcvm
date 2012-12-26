@@ -2,7 +2,7 @@
 
 CC := gcc
 LDFLAGS := $(shell sdl-config --libs) -lsigsegv -lprofiler
-CFLAGS := -Wall -Wextra -Wno-unused-variable -fwrapv -pedantic -std=c99 -g -O4 -pipe $(shell sdl-config --cflags)
+CFLAGS := -Wall -Wextra -Wno-unused-variable -ftrapv -pedantic -std=c99 -g -O4 -pipe $(shell sdl-config --cflags)
 
 all: arcvm tags
 

@@ -9,6 +9,32 @@
 
 #include "assert.h"
 
+// Defaults
+int MAJOR = 0;
+int MINOR = 1;
+int NUM_REGS = 32;
+int USERSPACE = 512;
+int WORD = 4;
+int HALFWORD = 2;
+int WORD_BITS = 8;
+unsigned int MEM_OS = 0x800;
+unsigned int MEM_IO = 0xFFFF0000;
+unsigned int C_OUT = 0xFFFF0000;
+unsigned int C_STAT = 0xFFFF0004;
+unsigned int V_STAT = 0xFFFF00F0;
+unsigned int V_COLOR = 0xFFFF00F1;
+unsigned int V_CMD = 0xFFFF00F2;
+unsigned int V_ADDR_X = 0xFFFF00F4;
+unsigned int V_ADDR_Y = 0xFFFF00F8;
+int CHECK_CONFIG = true;
+int TRACE_MEMORY = false;
+int TRACE_INSTRS = false;
+int PRINT_SUMMARY = true;
+int VIDEO_ENABLED = true;
+int VIDEO_WIDTH = 320;
+int VIDEO_HEIGHT = 240;
+int VIDEO_SCALE = 3;
+
 void check_config() {
     if (!CHECK_CONFIG) return;
 

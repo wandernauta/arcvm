@@ -10,68 +10,72 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// VM VERSION ETC
+extern int MAJOR;
+extern int MINOR;
+
 // PROCESSOR CHARACTERISTICS
 
 // The number of registers to use
-static const unsigned int NUM_REGS = 32;
+extern int NUM_REGS;
 
-// The size of the userspace memory in bytes
-static const unsigned int USERSPACE = 512 * 1024;
+// The size of the userspace memory in kilobytes
+extern int USERSPACE;
 
 // Word size in bytes
-static const unsigned int WORD = 4;
+extern int WORD;
 
 // Halfword size in bytes
-static const unsigned int HALFWORD = 2;
+extern int HALFWORD;
 
 // Word size in bits
-static const unsigned int WORD_BITS = 8;
+extern int WORD_BITS;
 
 // MEMORY LOCATION DEFINITIONS AND OFFSETS
 
 // Operating system-reserved memory in bytes
-static const unsigned int MEM_OS = 0x800;
+extern unsigned int MEM_OS;
 
 // Begin of I/O mapping in bytes
-static const unsigned int MEM_IO = 0xFFFF0000;
+extern unsigned int MEM_IO;
 
 // Console data (out) port
-static const unsigned int C_OUT = 0xFFFF0000;
+extern unsigned int C_OUT;
 
 // Console status (in) port
-static const unsigned int C_STAT = 0xFFFF0004;
+extern unsigned int C_STAT;
 
 // Video status (in) port (8 bits)
-static const unsigned int V_STAT = 0xFFFF00F0;
+extern unsigned int V_STAT;
 
 // Video color (in/out) port (8 bits)
-static const unsigned int V_COLOR = 0xFFFF00F1;
+extern unsigned int V_COLOR;
 
 // Video command (out) port (16 bits)
-static const unsigned int V_CMD = 0xFFFF00F2;
+extern unsigned int V_CMD;
 
 // Video pixel location (out/in) port (32+32 bits)
-static const unsigned int V_ADDR_X = 0xFFFF00F4;
-static const unsigned int V_ADDR_Y = 0xFFFF00F8;
+extern unsigned int V_ADDR_X;
+extern unsigned int V_ADDR_Y;
 
 // TRACING AND DEBUGGING
 
 // Whether to check the configuration at runtime
-static const bool CHECK_CONFIG = true;
+extern int CHECK_CONFIG;
 
 // Trace (print) memory loads and stores
-static const bool TRACE_MEMORY = false;
+extern int TRACE_MEMORY;
 
 // Trace (print) instructions
-static const bool TRACE_INSTRS = false;
+extern int TRACE_INSTRS;
 
 // Display a run summary when the VM halts
-static const bool PRINT_SUMMARY = true;
+extern int PRINT_SUMMARY;
 
 // VIDEO
-static const bool VIDEO_ENABLED = true;
-static const unsigned int VIDEO_WIDTH = 320;
-static const unsigned int VIDEO_HEIGHT = 240;
-static const unsigned int VIDEO_SCALE = 3;
+extern int VIDEO_ENABLED;
+extern int VIDEO_WIDTH;
+extern int VIDEO_HEIGHT;
+extern int VIDEO_SCALE;
 
 void check_config();

@@ -8,7 +8,7 @@
 //
 
 void setup_memory() {
-    m = calloc(USERSPACE, 1);
+    m = calloc(USERSPACE, 1024);
 
     if (VIDEO_ENABLED) {
         SDL_Init(SDL_INIT_VIDEO);

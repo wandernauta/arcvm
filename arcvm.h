@@ -11,6 +11,7 @@
 #include <assert.h>
 #include <time.h>
 #include <stdbool.h>
+#include <getopt.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>

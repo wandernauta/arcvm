@@ -72,6 +72,8 @@ int arcvm() {
     SDL_Event event;
     bool running = true;
 
+    SDL_WM_SetCaption("arcvm (Running)", NULL);
+
     while (running) {
         while(SDL_PollEvent(&event)) {
             switch (event.type) {
@@ -315,13 +317,19 @@ int arcvm() {
         printf("\n");
     }
 
-    while (true) {
-        SDL_Delay(0);
-        SDL_WaitEvent(&event);
-        switch (event.type) {
-            case SDL_KEYDOWN:
-            case SDL_QUIT:
-                exit(0);
+    if (VIDEO_ENABLED) {
+        // The simulation has ended. Keep showing the last frame until the user
+        // presses a key (useful for programs that produce a single image)
+
+        SDL_WM_SetCaption("arcvm (Finished)", NULL);
+        while (true) {
+            SDL_Delay(0);
+            SDL_WaitEvent(&event);
+            switch (event.type) {
+                case SDL_KEYDOWN:
+                case SDL_QUIT:
+                    exit(0);
+            }
         }
     }
 

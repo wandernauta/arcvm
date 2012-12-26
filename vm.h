@@ -29,7 +29,7 @@ static const uint32_t V = 1 << 21; // oVerflow
 static const uint32_t C = 1 << 20; // Carry
 
 void setup_registers();
-void cc(int32_t val);
+void cc(int32_t val, int32_t a, int32_t b);
 
 // Main loop
 int arcvm();

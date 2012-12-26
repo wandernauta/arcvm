@@ -37,14 +37,37 @@ bool condition(uint32_t cond) {
     return true;
 }
 
-void cc(int32_t result) {
+// Sign function: returns -1, 0, or 1 if the value is neg., zero or pos.
+int sign(int32_t x) {
+    if (x > 0) return 1;
+    if (x < 0) return -1;
+    return 0;
+}
+
+void cc(int32_t result, int32_t a, int32_t b) {
     // Update condition codes
     psr = 0;
     if (result < 0) psr |= N;
     if (result == 0) psr |= Z;
     if (result << 31) psr |= C;
 
-    if (TRACE_INSTRS) printf("Update cc for val %d\n", result);
+    if (sign(a) == sign(b) && sign(result) != sign(a)) {
+        // Overflow is only possible when both operands are the same sign. If
+        // that is the case, and the result has a different sign, overflow has
+        // occurred.
+        psr |= V;
+    }
+
+    if (TRACE_INSTRS) {
+        printf("Update cc for result %d, a %d, b %d: ", result, a, b);
+
+        if (psr & N) printf(" N");
+        if (psr & Z) printf(" Z");
+        if (psr & V) printf(" V");
+        if (psr & C) printf(" C");
+
+        printf("\n");
+    }
 }
 
 int arcvm() {
@@ -169,7 +192,7 @@ int arcvm() {
                       case 0 + 16:
                         // addcc
                         r[rd] = r[a] + b;
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 0:
                         // add
@@ -178,7 +201,7 @@ int arcvm() {
                       case 1 + 16:
                         // andcc
                         r[rd] = r[a] & b;
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 1:
                         // and
@@ -187,7 +210,7 @@ int arcvm() {
                       case 2 + 16:
                         // orcc
                         r[rd] = r[a] | b;
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 2:
                         // or
@@ -196,7 +219,7 @@ int arcvm() {
                       case 3 + 16:
                         // xorcc
                         r[rd] = r[a] ^ b;
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 3:
                         // xor
@@ -205,7 +228,7 @@ int arcvm() {
                       case 4 + 16:
                         // subcc
                         r[rd] = r[a] - b;
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 4:
                         // sub
@@ -214,7 +237,7 @@ int arcvm() {
                       case 5 + 16:
                         // andncc
                         r[rd] = r[a] & ~b;
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 5:
                         // andn
@@ -223,7 +246,7 @@ int arcvm() {
                       case 6 + 16:
                         // orncc
                         assert(false);
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 6:
                         // orn
@@ -232,7 +255,7 @@ int arcvm() {
                       case 7 + 16:
                         // xnorcc
                         assert(false);
-                        cc(r[rd]);
+                        cc(r[rd], r[a], b);
                         break;
                       case 7:
                         // xnor
@@ -240,7 +263,7 @@ int arcvm() {
                         break;
                       case 38:
                         // srl
-                        r[rd] = r[a] >> b;
+                        r[rd] = (uint32_t)r[a] >> (uint32_t)b;
                         break;
                       case 56:
                         // jmpl
@@ -295,6 +318,7 @@ int arcvm() {
     }
 
     while (true) {
+        SDL_Delay(0);
         SDL_WaitEvent(&event);
         switch (event.type) {
             case SDL_KEYDOWN:

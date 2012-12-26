@@ -88,7 +88,15 @@ loop:
     add %r9, 1, %r9 ! Increase data offset
     ba loop
 done:
-    st %r6, [%r1+V_CMD]
+    st %r6, [%r1+V_CMD] ! Update screen
+    or %r0, %r0, %r1 ! Clear register %r1
+    or %r0, %r0, %r2 ! Clear register %r2
+    or %r0, %r0, %r3 ! Clear register %r3
+    or %r0, %r0, %r4 ! Clear register %r4
+    or %r0, %r0, %r6 ! Clear register %r6
+    or %r0, %r0, %r9 ! Clear register %r9
+    or %r0, %r0, %r12 ! Clear register %r12
+    or %r0, %r0, %r13 ! Clear register %r13
     halt
 logo: 0x00000000, 0x00000000, 0x00000000, 0x0000ffff, 0xffffffff, 0xffffff00, 0x00000000, 0x00000000, 0x00000000, 0x000000ff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffffff, 0xffffffff, 0xff000000, 0x00000000, 0x00000000
         0x00000000, 0x00000000, 0x00000000, 0x00ffffff, 0xffffffff, 0xffffffff, 0x00000000, 0x00000000, 0x00000000, 0x000000ff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00ffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0x00000000, 0x00000000

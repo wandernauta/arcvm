@@ -66,7 +66,7 @@
 #define TRACE_INSTRS false
 
 // Display a run summary when the VM halts
-#define PRINT_SUMMARY false
+#define PRINT_SUMMARY true
 
 // VIDEO
 #define VIDEO_ENABLED true

@@ -13,11 +13,34 @@ void setup_registers() {
     }
 }
 
+bool condition(uint32_t cond) {
+    switch (cond) {
+        case 0:  return false; // bn: Branch never
+        case 1:  return (psr & Z); // be: Branch equal
+        case 2:  return (psr & Z || ((psr & N) ^ (psr & V))); // ble: Branch less or equal
+        case 3:  return ((psr & N) ^ (psr & V)); // bl: Branch less
+        case 4:  return (psr & C || psr & Z); // bleu: Branch less or equal unsigned
+        case 5:  return (psr & C); // bcs: Branch carry set
+        case 6:  return (psr & N); // bneg: Branch negative
+        case 7:  return (psr & V); // bvs: Branch overflow set
+        case 8:  return true; // ba: Branch always
+        case 9:  return (!(psr & Z)); // bne: Branch not equal
+        case 10: assert(false); // bg
+        case 11: assert(false); // bge
+        case 12: assert(false); // bgu
+        case 13: return (!(psr & C)); // bcc: Branch carry clear
+        case 14: return (!(psr & N)); // bpos Branch positive
+        case 15: return (!(psr & V)); // bvc: Branch overflow clear
+        default: assert(false); // Unknown branch
+    }
+}
+
 void cc(int32_t val) {
     // Update condition codes
     psr = 0;
     if (val < 0) psr |= N;
     if (val == 0) psr |= Z;
+    if (val << 31) psr |= C;
 
     if (TRACE_INSTRS) printf("Update cc for val %d\n", val);
 }
@@ -243,111 +266,11 @@ int arcvm() {
                         r[rd] = 0;
                         r[rd] |= (si22 << 10);
                     } else {
-                        switch (cond) {
-                          case 0:
-                            // bn: Branch never
-                            break;
-                          case 1:
-                            // be: Branch equal
-                            if (psr & Z) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 2:
-                            // ble: Branch less or equal
-                            if (psr & Z || ((psr & N) ^ (psr & V))) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 3:
-                            // bl: Branch less
-                            if ((psr & N) ^ (psr & V)) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 4:
-                            // bleu: Branch less or equal unsigned
-                            if (psr & C || psr & Z) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 5:
-                            // bcs: Branch carry set
-                            if (psr & C) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            continue;
-                            break;
-                          case 6:
-                            // bneg; Branch negative
-                            if (psr & N) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 7:
-                            // bvs: Branch overflow set
-                            if (psr & V) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 8:
-                            // ba: Branch always
+                        if (condition(cond)) {
                             pc += 4 * i22;
-                            continue;
-                            break;
-                          case 9:
-                            // bne: Branch not equal
-                            if (!(psr & Z)) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 10:
-                            // bg
-                            assert(false);
-                            break;
-                          case 11:
-                            // bge
-                            assert(false);
-                            break;
-                          case 12:
-                            // bgu
-                            assert(false);
-                            break;
-                          case 13:
-                            // bcc
-                            if (!(psr & C)) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 14:
-                            // bpos
-                            if (!(psr & N)) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          case 15:
-                            // bvc
-                            if (!(psr & V)) {
-                                pc += 4 * i22;
-                                continue;
-                            }
-                            break;
-                          default:
-                            assert(false);
-                            break;
-                          }
                         }
-                break;
+                    }
+                    break;
                 default:
                 assert(false);
             }

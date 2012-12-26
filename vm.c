@@ -33,6 +33,8 @@ bool condition(uint32_t cond) {
         case 15: return (!(psr & V)); // bvc: Branch overflow clear
         default: assert(false); // Unknown branch
     }
+
+    return true;
 }
 
 void cc(int32_t result) {
@@ -268,6 +270,7 @@ int arcvm() {
                     } else {
                         if (condition(cond)) {
                             pc += 4 * i22;
+                            continue;
                         }
                     }
                     break;

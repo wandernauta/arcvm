@@ -6,6 +6,10 @@ The libchk utility library provides macros and subroutines that facilitate
 testing libraries and user code.
 
 
+libchr
+------
+
+
 libcol
 ------
 
@@ -133,6 +137,10 @@ to prevent execution.
 **equ**: Define an assembly-time value. (arcpp macro)
 
 Expands to both an unmangled and a mangled .equ - an assembly-time constant.
+
+**ret**: Expands to a subroutine return. (arcpp macro)
+
+A shorter way to write `jmpl %r15 + 4, %r0`.
 
 libmem
 ------

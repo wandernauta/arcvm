@@ -44,4 +44,10 @@
 #define equ(name, value) assembler_equ(name, value) \n assembler_equ(mangle(name), value)
 #define assembler_equ(name, value) name .equ value
 
+! 
+! **ret**: Expands to a subroutine return. (arcpp macro)
+! 
+! A shorter way to write `jmpl %r15 + 4, %r0`.
+#define ret jmpl %r15 + 4, %r0
+
 #endif

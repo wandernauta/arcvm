@@ -1,0 +1,45 @@
+    .begin
+    .org 2048
+
+    #include "libfnt.arc"
+    #include "libchr.arc"
+
+    or %r0, 0, %r2
+
+    #define put(chr) inc %r2 \n or %r0, chr, %r3 \n fnt(%r3, %r2, 1, 0xFF)
+
+    put(0x57)
+    put(0x4f)
+    put(0x55)
+    put(0x4c)
+    put(0x44)
+    put(0x20)
+    put(0x59)
+    put(0x4f)
+    put(0x55)
+    put(0x20)
+    put(0x4c)
+    put(0x49)
+    put(0x4b)
+    put(0x45)
+    put(0x20)
+    put(0x54)
+    put(0x4f)
+    put(0x20)
+    put(0x50)
+    put(0x4c)
+    put(0x41)
+    put(0x59)
+    put(0x20)
+    put(0x41)
+    put(0x20)
+    put(0x47)
+    put(0x41)
+    put(0x4d)
+    put(0x45)
+    put(0x3f)
+    put(0x20)
+
+    halt
+    .end
+

@@ -22,7 +22,7 @@ putc:
         andcc %r1, 0x80, %r31
         be putc
         stb %r3, [%r30 + COUT]
-        jmpl %r15 + 4, %r0
+        ret
 
 enddata(libcon)
 

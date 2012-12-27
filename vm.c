@@ -8,7 +8,7 @@
 #include "vm.h"
 
 void setup_registers() {
-    r = calloc(NUM_REGS, 1);
+    r = calloc(NUM_REGS, sizeof(int32_t));
 }
 
 bool condition(uint32_t cond) {
@@ -260,6 +260,10 @@ int arcvm() {
                       case 7:
                         // xnor
                         r[rd] = r[a] ^ ~b;
+                        break;
+                      case 37:
+                        // sll
+                        r[rd] = (uint32_t)r[a] << (uint32_t)b;
                         break;
                       case 38:
                         // srl

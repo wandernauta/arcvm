@@ -1,7 +1,6 @@
 # Makefile for building arcvm, the ARC virtual machine
 
 CC := gcc
-LDFLAGS := $(shell sdl-config --libs) -lsigsegv -lprofiler
 CFLAGS := -Wall -Wextra -Wno-unused-variable -ftrapv -pedantic -std=c99 -Os -pipe $(shell sdl-config --cflags)
 
 all: arcvm tags
@@ -14,7 +13,7 @@ OBJECTS := arcvm.o \
 
 arcvm: $(OBJECTS)
 	@echo "- Linking $@..."
-	@$(CC) $(LDFLAGS) $^ -o $@
+	@$(CC) $(shell sdl-config --cflags) $^ -o $@ $(shell sdl-config --libs)
 
 %.o: %.c
 	@echo "- Compiling $< ($(CC))..."

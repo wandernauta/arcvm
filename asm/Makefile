@@ -7,6 +7,7 @@ LIBS := \
 	libdev.asm \
 	libdiv.asm \
 	libgfx.asm \
+	libchr.asm \
 	libmem.asm \
 	libfnt.asm \
 	libcon.asm \
@@ -17,7 +18,8 @@ LIBS := \
 
 SAMPLES := \
 	logo.asm \
-	hello.asm
+	hello.asm \
+	wargames.asm
 
 all: stdlib samples README.mkd
 

@@ -6,31 +6,32 @@
 ! ------
 ! 
 
-#define A 41
-#define B 42
-#define C 43
-#define D 44
-#define E 45
-#define F 46
-#define G 47
-#define H 48
-#define I 49
-#define J 50
-#define K 51
-#define L 52
-#define M 53
-#define N 54
-#define O 55
-#define P 56
-#define Q 57
-#define R 58
-#define S 59
-#define T 60
-#define U 61
-#define V 62
-#define W 63
-#define X 64
-#define Y 65
-#define Z 66
+#define A 0x41
+#define B 0x42
+#define C 0x43
+#define D 0x44
+#define E 0x45
+#define F 0x46
+#define G 0x47
+#define H 0x48
+#define I 0x49
+#define J 0x4A
+#define K 0x4B
+#define L 0x4C
+#define M 0x4D
+#define N 0x4E
+#define O 0x4F
+#define P 0x50
+#define Q 0x51
+#define R 0x52
+#define S 0x53
+#define T 0x54
+#define U 0x55
+#define V 0x56
+#define W 0x57
+#define X 0x58
+#define Y 0x59
+#define Z 0x5A
+#define _ 0x20
 
 #endif

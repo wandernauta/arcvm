@@ -31,25 +31,19 @@ libcon_data: ba __end_libcon_data
 putc:
         ld [MEM_IO], %r30
         ld [%r30 + COSTAT], %r31
-        andcc %r1, 0x80, %r31
+        andcc %r31, 0x80, %r31
         be putc
         stb %r3, [%r30 + COUT]
         jmpl %r15 + 4, %r0
 getc:
         ld [MEM_IO], %r30
         ld [%r30 + CICTL], %r31
-  andcc %r31, 0x80, %r0
+  andcc %r31, 0x80, %r31
   be getc
-  ldub [%r4 + CIN], %r3
+  ld [%r4 + CIN], %r3
         jmpl %r15 + 4, %r0
 __end_libcon_data:
-        ld [MEM_IO], %r4
-loop: ld [%r4 + CICTL], %r1
-        andcc %r1, 0x80, %r1
-        be loop
-        ld [%r4 + CIN], %r3
-        subcc %r3, 27, %r5 ! 27 is Escape
-        be end ! stop if it is.
+loop: call getc
         call putc
         ba loop
 end: halt

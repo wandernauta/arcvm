@@ -4,6 +4,7 @@
 #include "liblib.arc"
 #include "libgfx.arc"
 #include "libdev.arc"
+#include "libcon.arc"
 
 ! 
 ! libfnt
@@ -19,7 +20,6 @@ data(libfnt)
 libfntfnt:
             ld [MEM_IO], %r30       ! %r30 = memory offset
 
-            andn %r16, 32, %r16     ! Force lowercase
             sub %r16, 32, %r16      ! Compensate ASCII offset
 
             sll %r16, 6, %r16       ! %r16 = data offset
@@ -154,11 +154,10 @@ fntfont:    0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
-            0x0000FFFF, 0xFFFFFF00
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000

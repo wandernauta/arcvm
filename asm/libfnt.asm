@@ -36,10 +36,25 @@ __end_libdev_data:
 .macro gfxpixel reg
     stb reg, [%r1+V_COLOR]
 .endmacro
+libcon_data: ba __end_libcon_data
+putc:
+        ld [MEM_IO], %r30
+        ld [%r30 + COSTAT], %r31
+        andcc %r31, 0x80, %r31
+        be putc
+        stb %r3, [%r30 + COUT]
+        jmpl %r15 + 4, %r0
+getc:
+        ld [MEM_IO], %r30
+        ld [%r30 + CICTL], %r31
+  andcc %r31, 0x80, %r31
+  be getc
+  ld [%r30 + CIN], %r3
+        jmpl %r15 + 4, %r0
+__end_libcon_data:
 libfnt_data: ba __end_libfnt_data
 libfntfnt:
             ld [MEM_IO], %r30 ! %r30 = memory offset
-            andn %r16, 32, %r16 ! Force lowercase
             sub %r16, 32, %r16 ! Compensate ASCII offset
             sll %r16, 6, %r16 ! %r16 = data offset
             sll %r17, 3, %r17 ! %r17 = screen x offset
@@ -163,11 +178,10 @@ fntfont: 0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
-            0x0000FFFF, 0xFFFFFF00
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000

@@ -26,6 +26,7 @@ in:
         be newl
 
 norm:   
+        andn %r3, 32, %r3          ! Force uppercase
         fnt(%r3, %r2, %r4, 0xFF)
         inc %r2
         ba in

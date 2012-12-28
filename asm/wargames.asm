@@ -57,7 +57,6 @@ __end_libcon_data:
 libfnt_data: ba __end_libfnt_data
 libfntfnt:
             ld [MEM_IO], %r30 ! %r30 = memory offset
-            andn %r16, 32, %r16 ! Force lowercase
             sub %r16, 32, %r16 ! Compensate ASCII offset
             sll %r16, 6, %r16 ! %r16 = data offset
             sll %r17, 3, %r17 ! %r17 = screen x offset
@@ -181,11 +180,10 @@ fntfont: 0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
-            0x0000FFFF, 0xFFFFFF00
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
@@ -607,21 +605,66 @@ fntfont: 0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
 __end_libfnt_data:
-Loop: ld [%r2 + str], %r3 ! Load next char into r3
+one: ld [%r2 + prompt], %r3 ! Load next char into r3
         addcc %r3, 0, %r3
-        be End ! Stop if null.
+        be wait ! Stop if null.
         or %r0, %r3, %r16 
  or %r0, %r4, %r17 
  or %r0, 1, %r18 
  or %r0, 0xFF, %r19 
  call libfntfnt
-        !call putc
         add %r2, 4, %r2 ! Increment string offset (r2)
         inc %r4 ! Increment 0x58 position (r4)
-        ba Loop
-End: halt
+        ba one
+wait: call getc
+two:
+        clr %r2
+        clr %r4
+loop1: ld [%r2 + line1], %r3
+        addcc %r3, 0, %r3
+        be three
+        or %r0, %r3, %r16 
+ or %r0, %r4, %r17 
+ or %r0, 3, %r18 
+ or %r0, 0xFF, %r19 
+ call libfntfnt
+        add %r2, 4, %r2
+        inc %r4
+        ba loop1
+three:
+        clr %r2
+        clr %r4
+loop2: ld [%r2 + line2], %r3
+        addcc %r3, 0, %r3
+        be four
+        or %r0, %r3, %r16 
+ or %r0, %r4, %r17 
+ or %r0, 4, %r18 
+ or %r0, 0xFF, %r19 
+ call libfntfnt
+        add %r2, 4, %r2
+        inc %r4
+        ba loop2
+four:
+        clr %r2
+        clr %r4
+loop3: ld [%r2 + line3], %r3
+        addcc %r3, 0, %r3
+        be end
+        or %r0, %r3, %r16 
+ or %r0, %r4, %r17 
+ or %r0, 5, %r18 
+ or %r0, 0xFF, %r19 
+ call libfntfnt
+        add %r2, 4, %r2
+        inc %r4
+        ba loop3
+end: halt
         .org 3000
-str: 0x20, 0x57, 0x4F, 0x55, 0x4C, 0x44, 0x20, 0x59, 0x4F, 0x55, 0x20, 0x4C, 0x49, 0x4B, 0x45, 0x20, 0x54, 0x4F, 0x20, 0x50, 0x4C, 0x41, 0x59
+prompt: 0x20, 0x57, 0x4F, 0x55, 0x4C, 0x44, 0x20, 0x59, 0x4F, 0x55, 0x20, 0x4C, 0x49, 0x4B, 0x45, 0x20, 0x54, 0x4F, 0x20, 0x50, 0x4C, 0x41, 0x59
         0x20, 0x41, 0x20, 0x47, 0x41, 0x4D, 0x45, 0x3F
         0
+line1: 0x20, 0x41, 0x20, 0x53, 0x54, 0x41, 0x4E, 0x47, 0x45, 0x20, 0x47, 0x41, 0x4D, 0x45, 0
+line2: 0x20, 0x54, 0x48, 0x45, 0x20, 0x4F, 0x4E, 0x4C, 0x59, 0x20, 0x57, 0x49, 0x4E, 0x4E, 0x49, 0x4E, 0x47, 0x20, 0x4D, 0x4F, 0x56, 0x45, 0x20, 0x49, 0x53, 0
+line3: 0x20, 0x4E, 0x4F, 0x54, 0x20, 0x54, 0x4F, 0x20, 0x50, 0x4C, 0x41, 0x59, 0
         .end

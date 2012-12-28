@@ -57,7 +57,6 @@ __end_libcon_data:
 libfnt_data: ba __end_libfnt_data
 libfntfnt:
             ld [MEM_IO], %r30 ! %r30 = memory offset
-            andn %r16, 32, %r16 ! Force lowercase
             sub %r16, 32, %r16 ! Compensate ASCII offset
             sll %r16, 6, %r16 ! %r16 = data offset
             sll %r17, 3, %r17 ! %r17 = screen x offset
@@ -181,11 +180,10 @@ fntfont: 0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
-            0x0000FFFF, 0xFFFFFF00
-            0x00000000, 0xFF000000
-            0x00000000, 0xFF000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
+            0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
             0x00000000, 0x00000000
@@ -621,6 +619,7 @@ in:
         subcc %r3, 0xD, %r0
         be newl
 norm:
+        andn %r3, 32, %r3 ! Force uppercase
         or %r0, %r3, %r16 
  or %r0, %r2, %r17 
  or %r0, %r4, %r18 

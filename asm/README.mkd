@@ -49,7 +49,10 @@ libcon
 The libcon library provides subroutines for outputting text.
 
 
-**putc**: Writes a character (unsigned 8-bit) to the console.
+**putc**: Writes the character (unsigned 8-bit) in %r3 to the console.
+
+
+**getc**: Waits for and reads a character (unsigned 8-bit) to register %r3.
 
 
 libdev
@@ -61,6 +64,10 @@ The libdev library provides higher-level access to virtual peripherals.
 **COUT**: Console output port offset (8 bits)
 
 **COSTAT**: Console status port offset (8 bits)
+
+**CIN**: Keyboard input port offset (8 bits)
+
+**CICTL**: Keyboard status port offset (8 bits)
 
 **V_COLOR**: Video color port offset (8 bits)
 

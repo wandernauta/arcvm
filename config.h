@@ -45,6 +45,12 @@ extern unsigned int C_OUT;
 // Console status (in) port
 extern unsigned int C_STAT;
 
+// Keyboard data (in) port
+extern unsigned int C_IN;
+
+// Keyboard status (in) port
+extern unsigned int C_ICTL;
+
 // Video status (in) port (8 bits)
 extern unsigned int V_STAT;
 

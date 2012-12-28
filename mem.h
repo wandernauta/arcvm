@@ -23,6 +23,8 @@ static SDL_Surface* screen;
 uint16_t xpos;
 uint16_t ypos;
 
+int key;
+
 // User memory
 static uint8_t* m;
 
@@ -31,3 +33,5 @@ int32_t load(uint32_t byte);
 uint8_t ldb(uint32_t byte);
 void store(uint32_t byte, int32_t val);
 void stb(uint32_t byteaddr, uint8_t byte);
+
+void handle_key(int key);

@@ -3,10 +3,14 @@
 ! Edit the original file, wargames.arc, instead.
         .begin
         .org 2048
-COUT .equ 0 
- _COUT0 .equ 0
-COSTAT .equ 4 
- _COSTAT0 .equ 4
+COUT .equ 0x0 
+ _COUT0 .equ 0x0
+COSTAT .equ 0x4 
+ _COSTAT0 .equ 0x4
+CIN .equ 0x8 
+ _CIN0 .equ 0x8
+CICTL .equ 0xC 
+ _CICTL0 .equ 0xC
 V_COLOR .equ 0xF1 
  _V_COLOR0 .equ 0xF1
 V_CMD .equ 0xF2 
@@ -26,10 +30,17 @@ __end_libdev_data:
 libcon_data: ba __end_libcon_data
 putc:
         ld [MEM_IO], %r30
-        ldub [%r30 + COSTAT], %r31
+        ld [%r30 + COSTAT], %r31
         andcc %r1, 0x80, %r31
         be putc
         stb %r3, [%r30 + COUT]
+        jmpl %r15 + 4, %r0
+getc:
+        ld [MEM_IO], %r30
+        ld [%r30 + CICTL], %r31
+  andcc %r31, 0x80, %r0
+  be getc
+  ldub [%r4 + CIN], %r3
         jmpl %r15 + 4, %r0
 __end_libcon_data:
 .macro gfxx reg
@@ -605,7 +616,7 @@ Loop: ld [%r2 + str], %r3 ! Load next char into r3
  call libfntfnt
         !call putc
         add %r2, 4, %r2 ! Increment string offset (r2)
-        inc %r4
+        inc %r4 ! Increment 0x58 position (r4)
         ba Loop
 End: halt
         .org 3000

@@ -77,6 +77,9 @@ int arcvm() {
     while (running) {
         while(SDL_PollEvent(&event)) {
             switch (event.type) {
+                case SDL_KEYDOWN:
+                    handle_key(event.key.keysym.unicode);
+                    break;
                 case SDL_QUIT:
                     exit(0);
             }

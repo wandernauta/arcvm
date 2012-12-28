@@ -13,6 +13,7 @@ void setup_memory() {
     if (VIDEO_ENABLED) {
         SDL_Init(SDL_INIT_VIDEO);
         screen = SDL_SetVideoMode(VIDEO_WIDTH * VIDEO_SCALE, VIDEO_HEIGHT * VIDEO_SCALE, 8, SDL_HWSURFACE | SDL_DOUBLEBUF);
+                SDL_EnableUNICODE( 1 );
         assert(screen);
     }
 }
@@ -36,12 +37,25 @@ int32_t load(uint32_t byteaddr) {
         if (byteaddr == C_STAT) {
             // Return all ones: everything is OK
             return 0xFFFFFFFF;
+        } else if (byteaddr == C_ICTL) {
+            // Return all ones: alll good
+            SDL_Delay(0);
+
+            if (key == 0) {
+                return 0;
+            } else {
+                return 0xFFFFFFFF;
+            }
         } else if (byteaddr == V_STAT) {
             if (VIDEO_ENABLED) {
                 return 0xFFFFFFFF;
             } else {
                 return 0x00000000;
             }
+        } else if (byteaddr == C_IN) {
+            int k = key;
+            key = 0;
+            return k;
         } else {
             // unknown
         }
@@ -106,6 +120,7 @@ void stb(uint32_t byteaddr, uint8_t byte) {
 
         if (byteaddr == C_OUT) {
             putchar(byte);
+            fflush(stdout);
         } else if (byteaddr == V_COLOR) {
             if (false) {}
             uint8_t* p = screen->pixels;
@@ -132,4 +147,8 @@ void stb(uint32_t byteaddr, uint8_t byte) {
         assert(false);
         return;
     }
+}
+
+void handle_key(int k) {
+    key = k;
 }

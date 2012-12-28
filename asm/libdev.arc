@@ -12,11 +12,19 @@
 
 ! 
 ! **COUT**: Console output port offset (8 bits)
-equ(COUT, 0)
+equ(COUT, 0x0)
 
 ! 
 ! **COSTAT**: Console status port offset (8 bits)
-equ(COSTAT, 4)
+equ(COSTAT, 0x4)
+
+! 
+! **CIN**: Keyboard input port offset (8 bits)
+equ(CIN, 0x8)
+
+! 
+! **CICTL**: Keyboard status port offset (8 bits)
+equ(CICTL, 0xC)
 
 ! 
 ! **V_COLOR**: Video color port offset (8 bits)

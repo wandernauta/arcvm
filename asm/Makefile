@@ -19,7 +19,8 @@ LIBS := \
 SAMPLES := \
 	logo.asm \
 	hello.asm \
-	wargames.asm
+	wargames.asm \
+	typewriter.asm
 
 all: stdlib samples README.mkd
 

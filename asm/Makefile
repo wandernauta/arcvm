@@ -20,7 +20,8 @@ SAMPLES := \
 	logo.asm \
 	hello.asm \
 	wargames.asm \
-	typewriter.asm
+	typewriter.asm \
+	edit.asm
 
 all: stdlib samples README.mkd
 

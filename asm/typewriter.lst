@@ -1,14 +1,14 @@
 (ARCTools Version 2.1.2)
  HexLoc     DecLoc    MachWord   Label        Instruction                Comment
                                               .org 2048                  
-                                              .equ 0x0                   
-                                              .equ 0x0                   
-                                              .equ 0x4                   
-                                              .equ 0x4                   
-                                              .equ 0x8                   
-                                              .equ 0x8                   
-                                              .equ 0xC                   
-                                              .equ 0xC                   
+                                              .equ 0                     
+                                              .equ 0                     
+                                              .equ 4                     
+                                              .equ 4                     
+                                              .equ 8                     
+                                              .equ 8                     
+                                              .equ 12                    
+                                              .equ 12                    
                                               .equ 0xF1                  
                                               .equ 0xF1                  
                                               .equ 0xF2                  
@@ -38,14 +38,13 @@
 00000838  0000002104  fe07a00c                ld %r30, [12], %r31        
 0000083c  0000002108  be8fe080                andcc %r31, 128, %r31      
 00000840  0000002112  02bffffc                be -4                      
-00000844  0000002116  c6012008                ld %r4, [8], %r3           
+00000844  0000002116  c607a008                ld %r30, [8], %r3          
 00000848  0000002120  81c3e004                jmpl %r15, 4, %r0          
 0000084c  0000002124            __end_libcon_data:                             
-00000850  0000002128  c8002804                ld [2052], %r4             
-00000854  0000002132  7ffffff7  loop:         call -9                    
-00000858  0000002136  7fffffef                call -17                   
-0000085c  0000002140  10bffffe                ba -2                      
-00000860  0000002144  ffffffff  end:          halt                       
+00000850  0000002128  7ffffff8  loop:         call -8                    
+00000854  0000002132  7ffffff0                call -16                   
+00000858  0000002136  10bffffe                ba -2                      
+0000085c  0000002140  ffffffff  end:          halt                       
 
 --- Symbol Table ---
 __end_libdev_data: 2060
@@ -54,7 +53,7 @@ V_CMD: 242
 _V_CMD0: 242
 _V_ADDR_Y0: 248
 _V_COLOR0: 241
-end: 2144
+end: 2140
 _MEM_IO0: 2056
 CIN: 8
 CICTL: 12
@@ -76,5 +75,5 @@ libdev_data: 2048
 _SCREENW0: 320
 COUT: 0
 V_COLOR: 241
-loop: 2132
+loop: 2128
 __end_libcon_data: 2124

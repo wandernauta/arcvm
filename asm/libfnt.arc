@@ -18,7 +18,10 @@
 data(libfnt)
 libfntfnt:
             ld [MEM_IO], %r30       ! %r30 = memory offset
+
+            andn %r16, 32, %r16     ! Force lowercase
             sub %r16, 32, %r16      ! Compensate ASCII offset
+
             sll %r16, 6, %r16       ! %r16 = data offset
             sll %r17, 3, %r17       ! %r17 = screen x offset
             sll %r18, 3, %r18       ! %r18 = screen y offset

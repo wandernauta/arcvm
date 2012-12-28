@@ -33,7 +33,7 @@ getc:
 		andcc %r31, 0x80, %r31
 		be getc
 
-		ld [%r4 + CIN], %r3
+		ld [%r30 + CIN], %r3
         ret
 
 enddata(libcon)

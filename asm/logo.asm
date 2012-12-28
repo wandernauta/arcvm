@@ -29,14 +29,14 @@ WHITE .equ 255
  _WHITE0 .equ 255
 YELLOW .equ 252 
  _YELLOW0 .equ 252
-COUT .equ 0x0 
- _COUT0 .equ 0x0
-COSTAT .equ 0x4 
- _COSTAT0 .equ 0x4
-CIN .equ 0x8 
- _CIN0 .equ 0x8
-CICTL .equ 0xC 
- _CICTL0 .equ 0xC
+COUT .equ 0 
+ _COUT0 .equ 0
+COSTAT .equ 4 
+ _COSTAT0 .equ 4
+CIN .equ 8 
+ _CIN0 .equ 8
+CICTL .equ 12 
+ _CICTL0 .equ 12
 V_COLOR .equ 0xF1 
  _V_COLOR0 .equ 0xF1
 V_CMD .equ 0xF2 

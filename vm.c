@@ -289,6 +289,10 @@ int arcvm() {
                         pc = r[a] + b;
                         continue;
                         break;
+                      case 58:
+                        // ta
+                        panic("Trap instruction reached");
+                        break;
                       default:
                         // unknown instruction
                         panic("Unknown arithmetic instruction");

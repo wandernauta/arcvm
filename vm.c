@@ -13,23 +13,23 @@ void setup_registers() {
 
 bool condition(uint32_t cond) {
     switch (cond) {
-        case 0:  return false; // bn: Branch never
-        case 1:  return (psr & Z); // be: Branch equal
-        case 2:  return (psr & Z || ((psr & N) ^ (psr & V))); // ble: Branch less or equal
-        case 3:  return ((psr & N) ^ (psr & V)); // bl: Branch less
-        case 4:  return (psr & C || psr & Z); // bleu: Branch less or equal unsigned
-        case 5:  return (psr & C); // bcs: Branch carry set
-        case 6:  return (psr & N); // bneg: Branch negative
-        case 7:  return (psr & V); // bvs: Branch overflow set
-        case 8:  return true; // ba: Branch always
-        case 9:  return (!(psr & Z)); // bne: Branch not equal
-        case 10: assert(false); // bg
-        case 11: assert(false); // bge
-        case 12: assert(false); // bgu
-        case 13: return (!(psr & C)); // bcc: Branch carry clear
-        case 14: return (!(psr & N)); // bpos Branch positive
-        case 15: return (!(psr & V)); // bvc: Branch overflow clear
-        default: assert(false); // Unknown branch
+        case 0:  return false;                                      // bn: Branch never
+        case 1:  return (psr & Z);                                  // be: Branch equal
+        case 2:  return (psr & Z || ((psr & N) ^ (psr & V)));       // ble: Branch less or equal
+        case 3:  return ((psr & N) ^ (psr & V));                    // bl: Branch less
+        case 4:  return (psr & C || psr & Z);                       // bleu: Branch less or equal unsigned
+        case 5:  return (psr & C);                                  // bcs: Branch carry set
+        case 6:  return (psr & N);                                  // bneg: Branch negative
+        case 7:  return (psr & V);                                  // bvs: Branch overflow set
+        case 8:  return true;                                       // ba: Branch always
+        case 9:  return (!(psr & Z));                               // bne: Branch not equal
+        case 10: return (!(psr & Z || ((psr & N) ^ (psr & V))));    // bg: Branch greater than
+        case 11: return (!((psr & N) ^ (psr & V)));                 // bge: Branch greater than equal
+        case 12: return (!(psr & C || psr & Z));                    // bgu: Branch greater than unsigned
+        case 13: return (!(psr & C));                               // bcc: Branch carry clear
+        case 14: return (!(psr & N));                               // bpos Branch positive
+        case 15: return (!(psr & V));                               // bvc: Branch overflow clear
+        default: assert(false);                                     // Unknown branch
     }
 
     return true;
@@ -290,6 +290,7 @@ int arcvm() {
                     uint32_t dest = (uint32_t)inst << 2;
                     r[15] = pc;
                     pc += dest;
+                    continue;
                     break;
                 case 0:
                     // sethi or branch

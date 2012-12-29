@@ -26,12 +26,9 @@ int32_t load(uint32_t byteaddr) {
 
     if (TRACE_MEMORY) printf("ld %u\n", byteaddr);
 
-    if (MEM_OS <= byteaddr && byteaddr < MEM_IO && byteaddr < (uint32_t)USERSPACE*1024) {
+    if (byteaddr < MEM_IO && byteaddr < (uint32_t)USERSPACE*1024) {
         // Load from user space
         return ((int32_t*)m)[wordaddr];
-    } else if (byteaddr < MEM_OS) {
-        // Load from system memory
-        return 0;
     } else if (byteaddr > MEM_IO) {
         // Load from I/O address space
         if (TRACE_MEMORY) printf("ld io %u (+%u)\n", byteaddr, byteaddr - MEM_IO);
@@ -112,10 +109,7 @@ void store(uint32_t byteaddr, int32_t val) {
 void stb(uint32_t byteaddr, uint8_t byte) {
     if (TRACE_MEMORY) printf("st %d=%02x -> %u\n", byte, byte, byteaddr);
 
-    if (byteaddr < MEM_OS) {
-        // Store to system memory.
-        return;
-    } else if (byteaddr < MEM_IO && byteaddr < (uint32_t)USERSPACE*1024) {
+    if (byteaddr < MEM_IO && byteaddr < (uint32_t)USERSPACE*1024) {
         // Store to user space.
         m[byteaddr] = byte;
     } else if (byteaddr >= MEM_IO) {

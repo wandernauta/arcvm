@@ -17,7 +17,6 @@ int USERSPACE = 512;
 int WORD = 4;
 int HALFWORD = 2;
 int WORD_BITS = 8;
-unsigned int MEM_OS = 0x800;
 unsigned int MEM_IO = 0xFFFF0000;
 unsigned int C_OUT = 0xFFFF0000;
 unsigned int C_STAT = 0xFFFF0004;
@@ -42,7 +41,6 @@ void check_config() {
 
     assert(NUM_REGS >= 1);
     assert(USERSPACE >= 1);
-    assert(MEM_IO >= MEM_OS);
 
     assert(C_OUT);
     assert(C_STAT);

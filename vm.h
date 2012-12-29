@@ -18,7 +18,7 @@
 
 static int32_t* r;
 
-static uint32_t pc = 2048; // Program counter
+static uint32_t pc = 0; // Program counter
 static uint32_t psr = 0x0; // Processor status register
 static uint32_t clks = 0;  // Clock counter
 

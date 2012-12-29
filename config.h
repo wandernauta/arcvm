@@ -33,9 +33,6 @@ extern int WORD_BITS;
 
 // MEMORY LOCATION DEFINITIONS AND OFFSETS
 
-// Operating system-reserved memory in bytes
-extern unsigned int MEM_OS;
-
 // Begin of I/O mapping in bytes
 extern unsigned int MEM_IO;
 

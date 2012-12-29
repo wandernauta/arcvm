@@ -41,3 +41,14 @@ getc:
   ld [%r30 + CIN], %r3
         jmpl %r15 + 4, %r0
 __end_libcon_data:
+libchk_data: ba __end_libchk_data
+abort:
+    ta 0
+    jmpl %r15 + 4, %r0
+.macro ae
+    bne abort
+.endmacro
+.macro an
+    ba abort
+.endmacro
+__end_libchk_data:

@@ -34,5 +34,10 @@ __end_libdev_data:
     st reg, [%r1+V_ADDR_Y]
 .endmacro
 .macro gfxpixel reg
+    ld [MEM_IO], %r1
     stb reg, [%r1+V_COLOR]
+.endmacro
+.macro gfxsync
+    ld [MEM_IO], %r1
+    st %r0, [%r1+V_CMD]
 .endmacro

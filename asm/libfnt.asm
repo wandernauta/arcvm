@@ -34,7 +34,12 @@ __end_libdev_data:
     st reg, [%r1+V_ADDR_Y]
 .endmacro
 .macro gfxpixel reg
+    ld [MEM_IO], %r1
     stb reg, [%r1+V_COLOR]
+.endmacro
+.macro gfxsync
+    ld [MEM_IO], %r1
+    st %r0, [%r1+V_CMD]
 .endmacro
 libcon_data: ba __end_libcon_data
 putc:
@@ -79,7 +84,7 @@ libfntfnt:
             inc %r16 ! Increase data offset
             ba lff_loop
             lff_done:
-            st %r6, [%r1+V_CMD] ! Update screen
+            gfxsync
             add %r16, 32, %r16
             srl %r16, 6, %r16
             srl %r17, 3, %r17

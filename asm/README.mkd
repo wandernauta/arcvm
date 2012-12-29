@@ -3,8 +3,19 @@ libchk
 ------
 
 The libchk utility library provides macros and subroutines that facilitate
-testing libraries and user code.
+testing and debugging libraries and user code.
 
+
+**abort**: Immediately stops execution.
+
+
+**ae**: Assert equal (assembler macro)
+
+Asserts that the zero bit is set. Useful for checking expectations.
+!
+**an**: Assert never (arcpp macro)
+!
+Asserts that the instruction is never executed.
 
 libchr
 ------
@@ -109,10 +120,29 @@ The libfnt library contains subroutines that draw text to the screen in a
 simple bitmap font.
 
 
+**fnt(char, x, y, color)**: Draws a character at position x, y (arcpp macro)
+
+The position is measured in 'titles', i.e. multiples of 8 pixels. The char
+argument should be an uppercase ASCII character.
+
+
 libgfx
 ------
 
 The libgfx library provides higher-level subroutines and utilities for using the virtual display.
+These macros load the memory offset into register %r1.
+
+
+**gfxx**: Sets the video X cursor to the position given register
+
+
+**gfxy**: Sets the video Y cursor to the position given register
+
+
+**gfxx**: Writes the color in the given register to the screen
+
+
+**gfxsync**: Updates the display
 
 
 liblib
@@ -155,6 +185,30 @@ libmem
 The libmem library provides higher-level access to the ARC memory subsystem.
 
 
+**memchr**: Searches %r3 for %r4 stopping at %r5
+!
+This subroutine is similar to the C memchr function. It searches a memory
+area starting at the address in %r3 for the byte in %r4. The address of the
+first byte that matches %r4 is put in %r3. If, after %r5-%r3 bytes, nothing has
+matched, %r4 is equal to %r5.
+
+
+**memcpy**: Fills %r3 with %r5 bytes from %r4.
+
+Similar to the memcpy function in C, this subroutine copies bytes from the
+memory address starting at %r4 to the memory address starting at %r3. In total,
+%r5 bytes are copied.
+
+
+**memset**: Set a memory area from %r3 to %r5 to the constant byte in %r4.
+
+
+**memfrob**: Frobnicates the memory area from %r3 to %r5.
+
+A fast memory frobnicator. Frobnicate the memory area again to defrobnicate
+it.
+
+
 libmth
 ------
 
@@ -172,4 +226,14 @@ librle
 
 The librle library contains a decoder for a simple Run-Length Encoding
 format.
+
+
+libstr
+------
+
+The libmem library provides some string-related subroutines. Note that this
+library assumes C-style strings, i.e. one byte per character.
+
+
+**strlen**: Set %r5 to the length of the packed string starting at %r3
 

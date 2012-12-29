@@ -1,0 +1,14 @@
+# Differences
+
+This file contains a short list of differences and incompatibilities between
+the official ARCTools and arcvm.
+
+- **Endianness**. arcvm internally assumes little endian byte order on the
+  host. The load/store instructions that handle halfwords and bytes have
+  special behaviour to make programs that assume ARC's big-endian byte order
+  work without modification.
+- **No traps**. arcvm does not have an operating system, so supporting
+  traps would not make much sense. All ta instructions immediately halt
+  the VM.
+- **No assembler**. Use the official ARCTools assembler to assemble programs
+  for the arcvm virtual machine.

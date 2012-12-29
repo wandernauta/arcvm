@@ -14,7 +14,7 @@ Compared with the official simulator, arcvm has the following features:
 - Simple video output. A scaled 320x240, 8-bit color, fixed-palette virtual
   display is available.
 - Performance. The virtual machine itself is written in C and plenty fast.
-- Complete compatibility. Arcvm implements the same instruction set as the
+- Compatibility. Arcvm implements the same instruction set as the
   ARCTools, and runs the .bin files the ARCTools assembler generates.
 
 ## Examples
@@ -31,6 +31,7 @@ The VM ships with a host of examples in the asm/ directory.
 A number of utility libraries are available:
 
 - libchk.arc: Testing
+- libchr.arc: Character constants
 - libcol.arc: Color names
 - libcon.arc: Console output
 - libdev.arc: Device addresses
@@ -43,6 +44,8 @@ A number of utility libraries are available:
 - libmul.arc: Integer multiplication
 - librle.arc: Run-length encoding
 - libstr.arc: String operations
+
+Read the README file in the asm directory for library documentation.
 
 ## License
 

@@ -20,6 +20,9 @@ Asserts that the instruction is never executed.
 libchr
 ------
 
+Provides arcpp macros from A to Z that expand to their ASCII value. _ expands
+to 0x20, an ASCII space.
+
 
 libcol
 ------
@@ -116,7 +119,7 @@ simple bitmap font.
 
 **fnt(char, x, y, color)**: Draws a character at position x, y (arcpp macro)
 
-The position is measured in 'titles', i.e. multiples of 8 pixels. The char
+The position is measured in 'tiles', i.e. multiples of 8 pixels. The char
 argument should be an uppercase ASCII character.
 
 
@@ -180,7 +183,7 @@ The libmem library provides higher-level access to the ARC memory subsystem.
 
 
 **memchr**: Searches %r3 for %r4 stopping at %r5
-!
+
 This subroutine is similar to the C memchr function. It searches a memory
 area starting at the address in %r3 for the byte in %r4. The address of the
 first byte that matches %r4 is put in %r3. If, after %r5-%r3 bytes, nothing has

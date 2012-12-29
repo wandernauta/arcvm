@@ -5,6 +5,9 @@
 ! libchr
 ! ------
 ! 
+! Provides arcpp macros from A to Z that expand to their ASCII value. _ expands
+! to 0x20, an ASCII space.
+! 
 
 #define A 0x41
 #define B 0x42

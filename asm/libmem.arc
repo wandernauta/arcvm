@@ -14,7 +14,7 @@ data(libmem)
 
 ! 
 ! **memchr**: Searches %r3 for %r4 stopping at %r5
-!
+! 
 ! This subroutine is similar to the C memchr function. It searches a memory
 ! area starting at the address in %r3 for the byte in %r4. The address of the
 ! first byte that matches %r4 is put in %r3. If, after %r5-%r3 bytes, nothing has

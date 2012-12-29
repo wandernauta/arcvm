@@ -17,7 +17,7 @@
 ! 
 ! **fnt(char, x, y, color)**: Draws a character at position x, y (arcpp macro)
 ! 
-! The position is measured in 'titles', i.e. multiples of 8 pixels. The char
+! The position is measured in 'tiles', i.e. multiples of 8 pixels. The char
 ! argument should be an uppercase ASCII character.
 ! 
 #define fnt(char, x, y, color) or %r0, char, %r16 \n or %r0, x, %r17 \n or %r0, y, %r18 \n or %r0, color, %r19 \n call libfntfnt

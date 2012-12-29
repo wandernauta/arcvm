@@ -28,6 +28,7 @@ int key;
 // User memory
 static uint8_t* m;
 
+// Functions
 void setup_memory();
 int32_t load(uint32_t byte);
 uint8_t ldb(uint32_t byte);

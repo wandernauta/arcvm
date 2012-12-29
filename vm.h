@@ -28,8 +28,10 @@ static const uint32_t Z = 1 << 22; // Zero
 static const uint32_t V = 1 << 21; // oVerflow
 static const uint32_t C = 1 << 20; // Carry
 
+// Functions
+void panic(const char* msg);
 void setup_registers();
-void cc(int32_t val, int32_t a, int32_t b);
-
-// Main loop
+bool condition(uint32_t cond);
+int sign(int32_t x);
+void cc(int32_t result, int32_t a, int32_t b);
 int arcvm();

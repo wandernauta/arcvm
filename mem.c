@@ -1,4 +1,6 @@
 #include "mem.h"
+#include "vm.h"
+
 //
 // mem.c
 // ARC memory subsystem implementation
@@ -24,7 +26,7 @@ int32_t load(uint32_t byteaddr) {
 
     if (TRACE_MEMORY) printf("ld %u\n", byteaddr);
 
-    if (MEM_OS <= byteaddr && byteaddr < MEM_IO) {
+    if (MEM_OS <= byteaddr && byteaddr < MEM_IO && byteaddr < (uint32_t)USERSPACE*1024) {
         // Load from user space
         return ((int32_t*)m)[wordaddr];
     } else if (byteaddr < MEM_OS) {
@@ -58,9 +60,10 @@ int32_t load(uint32_t byteaddr) {
             return k;
         } else {
             // unknown
+            panic("Access of unknown I/O device");
         }
     } else {
-        assert(false);
+        panic("Load from unknown address");
     }
     return 0;
 }
@@ -112,7 +115,7 @@ void stb(uint32_t byteaddr, uint8_t byte) {
     if (byteaddr < MEM_OS) {
         // Store to system memory.
         return;
-    } else if (byteaddr < MEM_IO) {
+    } else if (byteaddr < MEM_IO && byteaddr < (uint32_t)USERSPACE*1024) {
         // Store to user space.
         m[byteaddr] = byte;
     } else if (byteaddr >= MEM_IO) {
@@ -144,7 +147,7 @@ void stb(uint32_t byteaddr, uint8_t byte) {
         
         return;
     } else {
-        assert(false);
+        panic("Store (stb) to unknown address");
         return;
     }
 }

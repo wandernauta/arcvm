@@ -7,6 +7,14 @@
 //
 #include "vm.h"
 
+void panic(const char* msg) {
+    fprintf(stderr, "\n");
+    fprintf(stderr, "** PANIC **\n");
+    fprintf(stderr, "%s (pc %u)\n", msg, pc);
+    fprintf(stderr, "\n");
+    exit(EXIT_FAILURE);
+}
+
 void setup_registers() {
     r = calloc(NUM_REGS, sizeof(int32_t));
 }
@@ -29,7 +37,7 @@ bool condition(uint32_t cond) {
         case 13: return (!(psr & C));                               // bcc: Branch carry clear
         case 14: return (!(psr & N));                               // bpos Branch positive
         case 15: return (!(psr & V));                               // bvc: Branch overflow clear
-        default: assert(false);                                     // Unknown branch
+        default: panic("Unknown branch condition");
     }
 
     return true;
@@ -90,8 +98,11 @@ int arcvm() {
         // Reset r[0] register
         r[0] = 0;
 
+        if (pc >= (uint32_t)USERSPACE * 1024) {
+            panic("Runaway program counter");
+        }
+
         // Fetch and split instruction
-        assert(pc < (uint32_t)USERSPACE * 1024);
         uint32_t inst = load(pc);
 
         uint32_t op1 = (inst >> 30);
@@ -135,7 +146,7 @@ int arcvm() {
                     case 0:
                         // ld
                         // Loads a word.
-                        assert(addr % WORD == 0);
+                        if (addr % WORD != 0) panic("Maligned word (ld)");
                         r[rd] = load(addr);
                         break;
                     case 1:
@@ -151,14 +162,14 @@ int arcvm() {
                     case 2:
                         // lduh
                         // Loads an unsigned halfword (zero-pads)
-                        assert(addr % HALFWORD == 0);
+                        if (addr % HALFWORD != 0) panic("Maligned halfword (ld)");
                         r[rd] = load(addr);
                         r[rd] = (uint32_t)(r[rd]) >> 16;
                         break;
                     case 10:
                         // ldsh
                         // Loads a signed halfword (sign-extends).
-                        assert(addr % HALFWORD == 0);
+                        if (addr % HALFWORD != 0) panic("Maligned halfword (ld)");
                         r[rd] = load(addr);
                         r[rd] = r[rd] >> 16;
                         break;
@@ -183,7 +194,7 @@ int arcvm() {
                             running = false;
                         } else {
                             // unknown memory instruction
-                            assert(false);
+                            panic("Unknown memory-class instruction");
                             break;
                     }
                 }
@@ -280,7 +291,7 @@ int arcvm() {
                         break;
                       default:
                         // unknown instruction
-                        assert(false);
+                        panic("Unknown arithmetic instruction");
                         break;
                       }
                     break;
@@ -306,7 +317,7 @@ int arcvm() {
                     }
                     break;
                 default:
-                assert(false);
+                    panic("Unknown instruction");
             }
 
         pc += WORD;

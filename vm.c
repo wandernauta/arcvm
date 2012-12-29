@@ -283,6 +283,10 @@ int arcvm() {
                         // srl
                         r[rd] = (uint32_t)r[a] >> (uint32_t)b;
                         break;
+                      case 39:
+                        // sra
+                        r[rd] = r[a] >> b;
+                        break;
                       case 56:
                         // jmpl
                         r[rd] = pc;

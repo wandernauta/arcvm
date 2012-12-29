@@ -107,12 +107,6 @@ writing the color.
 
 **MEM_IO**: The begin of the I/O mapped memory space, in bytes. 
 
-libdiv
-------
-
-The libdiv library provides signed and unsigned integer division, as well as
-modulo operations.
-
 libfnt
 ------
 
@@ -207,33 +201,4 @@ memory address starting at %r4 to the memory address starting at %r3. In total,
 
 A fast memory frobnicator. Frobnicate the memory area again to defrobnicate
 it.
-
-
-libmth
-------
-
-The libmth library provides simple math-related subroutines.
-
-
-libmul
-------
-
-The libmth library provides multiplication using the Booth algorithm.
-
-
-librle
-------
-
-The librle library contains a decoder for a simple Run-Length Encoding
-format.
-
-
-libstr
-------
-
-The libmem library provides some string-related subroutines. Note that this
-library assumes C-style strings, i.e. one byte per character.
-
-
-**strlen**: Set %r5 to the length of the packed string starting at %r3
 

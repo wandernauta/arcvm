@@ -17,35 +17,37 @@ Compared with the official simulator, arcvm has the following features:
 - Compatibility. Arcvm implements the same instruction set as the
   ARCTools, and runs the .bin files the ARCTools assembler generates.
 
+Also bundled is a set of standard libraries that provide handy subroutines
+for common operations, as well as a tool (arcpp) for 'linking' with those
+libraries.
+
 ## Examples
 
 The VM ships with a host of examples in the asm/ directory.
 
 - colnames.bin: Fills the screen with pixels of changing color. Slow.
+- edit.bin: A fake editor. Typing, backspace and enter 'work'.
 - hello.bin: Prints 'Hello, world!' to the console.
 - logo.bin: Draws the arcvm logo to the screen.
 - pixel.bin: Draws a palette to the screen.
+- wargames.bin: Shall we play a game?
 
 ## Libraries
 
-A number of utility libraries are available:
+A number of utility libraries are available, providing higher-level access to
+the video and console interfaces, among other things. Read the README file in
+the asm directory for library documentation. The examples above also use the
+libraries.
 
-- libchk.arc: Testing
-- libchr.arc: Character constants
-- libcol.arc: Color names
-- libcon.arc: Console output
-- libdev.arc: Device addresses
-- libdiv.arc: Integer division
-- libfnt.arc: Font rendering
-- libgfx.arc: Graphics support
-- liblib.arc: Library support
-- libmem.arc: Memory operations
-- libmth.arc: Basic math
-- libmul.arc: Integer multiplication
-- librle.arc: Run-length encoding
-- libstr.arc: String operations
-
-Read the README file in the asm directory for library documentation.
+- libchk.arc: Assertions and checks.
+- libchr.arc: Character constants.
+- libcol.arc: Color names.
+- libcon.arc: Console output and keyboard input.
+- libdev.arc: I/O offsets for directly interfacing with peripherals.
+- libfnt.arc: Bitmap font character generator.
+- libgfx.arc: Graphics macro's.
+- liblib.arc: Utilities for building libraries.
+- libmem.arc: Higher-level memory subroutines.
 
 ## License
 

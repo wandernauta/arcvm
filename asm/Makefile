@@ -1,20 +1,15 @@
 # Makefile for preprocessing the ARC standard library and examples.
 
 LIBS := \
-	liblib.asm \
 	libchk.asm \
-	libcol.asm \
-	libdev.asm \
-	libdiv.asm \
-	libgfx.asm \
 	libchr.asm \
-	libmem.asm \
-	libfnt.asm \
+	libcol.asm \
 	libcon.asm \
-	libmth.asm \
-	libmul.asm \
-	librle.asm \
-	libstr.asm
+	libdev.asm \
+	libfnt.asm \
+	libgfx.asm \
+	liblib.asm \
+	libmem.asm \
 
 SAMPLES := \
 	logo.asm \
